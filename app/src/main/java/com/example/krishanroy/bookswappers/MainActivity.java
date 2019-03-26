@@ -1,27 +1,48 @@
 package com.example.krishanroy.bookswappers;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
 
-import com.example.krishanroy.bookswappers.signup.CreateAccountActivity;
-import com.jakewharton.rxbinding3.view.RxView;
+import com.example.krishanroy.bookswappers.ui.CreateAccountFragment;
+import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
+import com.example.krishanroy.bookswappers.ui.SignUpLoginFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentCommunication.createAccount, FragmentCommunication.homeScreen {
 
-    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button signUpButton = findViewById(R.id.sign_up_button);
-        RxView.clicks(signUpButton)
-                .subscribe(clicks -> moveToCreateAccountActivity());
+        initiateSignUpLoginFragment();
+
     }
 
-    private void moveToCreateAccountActivity() {
-        startActivity(new Intent(getApplicationContext(), CreateAccountActivity.class));
+    private void initiateSignUpLoginFragment() {
+        SignUpLoginFragment signUpLoginFragment = SignUpLoginFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container,signUpLoginFragment)
+                .addToBackStack("signUpLogin")
+                .commit();
+    }
+
+    @Override
+    public void moveToCreateAccountActivity() {
+        CreateAccountFragment createAccountFragment = CreateAccountFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, createAccountFragment)
+                .addToBackStack("createAccount")
+                .commit();
+    }
+
+    @Override
+    public void moveToHomeScreenFragment() {
+        CreateAccountFragment createAccountFragment = CreateAccountFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, createAccountFragment)
+                .addToBackStack("createAccount")
+                .commit();
     }
 }

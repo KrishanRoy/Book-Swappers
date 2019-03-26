@@ -40,7 +40,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="200dp"
         android:hint="@string/create_account_choose_a_password_edittext"
-        android:inputType="textPassword|numberPassword"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

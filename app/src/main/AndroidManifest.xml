@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signup.CreateAccountActivity" />
+        <activity android:name=".ui.CreateAccountFragment" />
     </application>
 
 </manifest>
