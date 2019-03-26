@@ -9,6 +9,7 @@ import com.example.krishanroy.bookswappers.ui.HomeScreenFragment;
 import com.example.krishanroy.bookswappers.ui.SignUpLoginFragment;
 
 public class MainActivity extends AppCompatActivity implements FragmentCommunication.createAccount, FragmentCommunication.homeScreen {
+    public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         SignUpLoginFragment signUpLoginFragment = SignUpLoginFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container,signUpLoginFragment)
+                .replace(R.id.fragment_container, signUpLoginFragment)
                 .addToBackStack("signUpLogin")
                 .commit();
     }
