@@ -5,6 +5,19 @@ public class Persons {
     private String name;
     private String title;
     private Address address;
+    private String image;
+
+    public Persons(int id, String name, String title, Address address, String image) {
+        this.id = id;
+        this.name = name;
+        this.title = title;
+        this.address = address;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
 
     public int getId() {
         return id;
@@ -13,6 +26,15 @@ public class Persons {
     public String getName() {
         return name;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
 
     public class Address {
         private String street;
