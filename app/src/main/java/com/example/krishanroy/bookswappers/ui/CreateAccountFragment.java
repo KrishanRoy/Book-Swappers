@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.krishanroy.bookswappers.R;
+
 public class CreateAccountFragment extends Fragment {
     public static CreateAccountFragment newInstance(){
         return new CreateAccountFragment();
@@ -20,7 +22,7 @@ public class CreateAccountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.create_activity_fragment, container, false);
     }
 
     @Override

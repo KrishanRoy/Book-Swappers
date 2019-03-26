@@ -1,6 +1,7 @@
 package com.example.krishanroy.bookswappers.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,23 @@ public class SignUpLoginFragment extends Fragment {
     FragmentCommunication.homeScreen homeScreen;
     public static SignUpLoginFragment newInstance(){
         return new SignUpLoginFragment();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof FragmentCommunication.createAccount){
+            createAccount = (FragmentCommunication.createAccount) context;
+        }else {
+            throw new RuntimeException(context.toString() +
+                    "must implement FragmentCommunication.createAccount");
+        }
+        if(context instanceof FragmentCommunication.homeScreen){
+            homeScreen = (FragmentCommunication.homeScreen) context;
+        }else {
+            throw new RuntimeException(context.toString() +
+                    "must implement FragmentCommunication.homeScreen");
+        }
     }
 
     @Override

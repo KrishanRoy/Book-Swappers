@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.krishanroy.bookswappers.ui.CreateAccountFragment;
 import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
+import com.example.krishanroy.bookswappers.ui.HomeScreenFragment;
 import com.example.krishanroy.bookswappers.ui.SignUpLoginFragment;
 
 public class MainActivity extends AppCompatActivity implements FragmentCommunication.createAccount, FragmentCommunication.homeScreen {
@@ -38,11 +39,11 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
 
     @Override
     public void moveToHomeScreenFragment() {
-        CreateAccountFragment createAccountFragment = CreateAccountFragment.newInstance();
+        HomeScreenFragment homeScreenFragment = HomeScreenFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, createAccountFragment)
-                .addToBackStack("createAccount")
+                .replace(R.id.fragment_container, homeScreenFragment)
+                .addToBackStack("homeScreen")
                 .commit();
     }
 }
