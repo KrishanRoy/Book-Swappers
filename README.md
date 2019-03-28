@@ -10,6 +10,9 @@ Point system will ensure book mobility and book swapping. If one donates one boo
 if one receives the book, one spends a point. If someone, mails the book to a collector, then the donor gets 
 three points as she/he will be spending money out of the pocket. 
 
+You can check the Trello Board link of [Book Swappers](https://trello.com/b/W8a1wTbZ/book-swappers)
+to check the distribution of the tasks.
+
 ## APP features:
 - Find people who are donating and receiving old books around your neighborhood based on your location
 - Contact donor or receiver and swap Face to face. 
