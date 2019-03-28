@@ -7,4 +7,15 @@
     <string name="enter_your_email__to_create_account_edittext">Enter your email</string>
     <string name="create_account_choose_a_password_edittext">Choose a password</string>
     <string name="password_regulation_textview">Password must be 6 characers long</string>
+    <string name="homescreen_add_toBackstack">homeScreen</string>
+    <string name="user_detail_add_to_backstack">userdetail</string>
+    <string name="email_toDonor_text">Hi, I am interested in that book</string>
+    <string name="create_account_add_to_backStack">createAccount</string>
+    <string name="sign_up_button_add_to_back_stack">signUpLogin</string>
+    <string name="alertdialog_name_textview">TextView</string>
+    <string name="alertDialogue_email_textview">TextView</string>
+    <string name="github_link_text">Github link</string>
+    <string name="check_my_linkedin_text">Check my LinkedIn</string>
+    <string name="githublink_of_the_currentproject">https://github.com/KrishanRoy/Book-Swappers</string>
+    <string name="linkedIn_link">https://www.linkedin.com/in/krishanroy/</string>
 </resources>

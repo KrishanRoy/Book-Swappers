@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +54,11 @@ public class SignUpLoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         Button signUpButton = view.findViewById(R.id.sign_up_button);
         Button logInButton = view.findViewById(R.id.log_in_button);
         RxView.clicks(signUpButton)
-                .subscribe(clicks -> createAccount.moveToCreateAccountActivity());
+                .subscribe(clicks -> createAccount.moveToCreateAccountFragment());
         RxView.clicks(logInButton)
                 .subscribe(clicks -> homeScreen.moveToHomeScreenFragment());
     }
