@@ -39,6 +39,7 @@
         android:layout_height="18dp"
         android:layout_marginStart="8dp"
         android:text="TextView"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.613"

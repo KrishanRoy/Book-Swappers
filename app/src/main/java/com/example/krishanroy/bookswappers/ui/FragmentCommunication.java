@@ -7,5 +7,8 @@ public interface FragmentCommunication {
     interface homeScreen{
         void moveToHomeScreenFragment();
     }
+    interface detailScreen{
+        void moveToUserDetailFragment();
+    }
 
 }

@@ -7,8 +7,11 @@ import com.example.krishanroy.bookswappers.ui.CreateAccountFragment;
 import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
 import com.example.krishanroy.bookswappers.ui.HomeScreenFragment;
 import com.example.krishanroy.bookswappers.ui.SignUpLoginFragment;
+import com.example.krishanroy.bookswappers.ui.UserDetailsFragment;
 
-public class MainActivity extends AppCompatActivity implements FragmentCommunication.createAccount, FragmentCommunication.homeScreen {
+public class MainActivity extends AppCompatActivity implements FragmentCommunication.createAccount,
+                                                                FragmentCommunication.homeScreen,
+                                                                FragmentCommunication.detailScreen{
     public static final String TAG = "MainActivity";
 
     @Override
@@ -45,6 +48,16 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
                 .beginTransaction()
                 .replace(R.id.fragment_container, homeScreenFragment)
                 .addToBackStack("homeScreen")
+                .commit();
+    }
+
+    @Override
+    public void moveToUserDetailFragment() {
+        UserDetailsFragment userDetailsFragment = UserDetailsFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, userDetailsFragment)
+                .addToBackStack("userdetail")
                 .commit();
     }
 }

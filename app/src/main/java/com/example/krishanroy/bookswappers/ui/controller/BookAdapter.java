@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.krishanroy.bookswappers.R;
+import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
 import com.example.krishanroy.bookswappers.ui.model.Persons;
 import com.example.krishanroy.bookswappers.ui.view.BookViewHolder;
 
@@ -13,9 +14,12 @@ import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
     List<Persons> personsList;
+    FragmentCommunication.detailScreen detailScreen;
 
-    public BookAdapter(List<Persons> personsList) {
+    public BookAdapter(List<Persons> personsList,
+                       FragmentCommunication.detailScreen detailScreen) {
         this.personsList = personsList;
+        this.detailScreen = detailScreen;
     }
 
     @NonNull
@@ -26,15 +30,18 @@ public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder bookViewHolder, int position) {
-        bookViewHolder.onBind(personsList.get(position));
+        bookViewHolder.onBind(personsList.get(position), detailScreen);
     }
 
     @Override
     public int getItemCount() {
         return personsList.size();
     }
-    public void setData(List<Persons> personsList){
+
+    public void setData(List<Persons> personsList,
+                        final FragmentCommunication.detailScreen detailScreen) {
         this.personsList = personsList;
+        this.detailScreen = detailScreen;
         notifyDataSetChanged();
     }
 }
