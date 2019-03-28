@@ -6,13 +6,19 @@ public class Persons {
     private String title;
     private Address address;
     private String image;
+    private String email;
 
-    public Persons(int id, String name, String title, Address address, String image) {
+    public String getEmail() {
+        return email;
+    }
+
+    public Persons(int id, String name, String title, Address address, String image, String email) {
         this.id = id;
         this.name = name;
         this.title = title;
         this.address = address;
         this.image = image;
+        this.email = email;
     }
 
     public String getImage() {
