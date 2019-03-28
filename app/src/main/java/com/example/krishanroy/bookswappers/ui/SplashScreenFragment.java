@@ -9,13 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.example.krishanroy.bookswappers.R;
 
 public class SplashScreenFragment extends Fragment {
-    private FragmentCommunication.loginPage loginListener;
+    private FragmentCommunication listener;
 
     public static SplashScreenFragment newInstance(){
         return new SplashScreenFragment();
@@ -24,11 +22,11 @@ public class SplashScreenFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof FragmentCommunication.loginPage){
-            loginListener = (FragmentCommunication.loginPage) context;
+        if(context instanceof FragmentCommunication){
+            listener = (FragmentCommunication) context;
         }else{
             throw new RuntimeException(context.toString() +
-                    " must implement FragmentCommunication.loginPage");
+                    " must implement FragmentCommunication");
         }
     }
 
@@ -55,7 +53,7 @@ public class SplashScreenFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            loginListener.moveToSignUpLoginFragment();
+            listener.moveToSignUpLoginFragment();
         }
     }
 

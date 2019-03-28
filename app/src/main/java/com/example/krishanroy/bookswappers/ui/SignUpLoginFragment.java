@@ -16,8 +16,8 @@ import com.example.krishanroy.bookswappers.R;
 import com.jakewharton.rxbinding3.view.RxView;
 
 public class SignUpLoginFragment extends Fragment {
-    FragmentCommunication.createAccount createAccount;
-    FragmentCommunication.homeScreen homeScreen;
+    private FragmentCommunication listener;
+
     public static SignUpLoginFragment newInstance(){
         return new SignUpLoginFragment();
     }
@@ -25,17 +25,11 @@ public class SignUpLoginFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof FragmentCommunication.createAccount){
-            createAccount = (FragmentCommunication.createAccount) context;
+        if(context instanceof FragmentCommunication){
+            listener = (FragmentCommunication) context;
         }else {
             throw new RuntimeException(context.toString() +
-                    "must implement FragmentCommunication.createAccount");
-        }
-        if(context instanceof FragmentCommunication.homeScreen){
-            homeScreen = (FragmentCommunication.homeScreen) context;
-        }else {
-            throw new RuntimeException(context.toString() +
-                    "must implement FragmentCommunication.homeScreen");
+                    "must implement FragmentCommunication");
         }
     }
 
@@ -58,9 +52,9 @@ public class SignUpLoginFragment extends Fragment {
         Button signUpButton = view.findViewById(R.id.sign_up_button);
         Button logInButton = view.findViewById(R.id.log_in_button);
         RxView.clicks(signUpButton)
-                .subscribe(clicks -> createAccount.moveToCreateAccountFragment());
+                .subscribe(clicks -> listener.moveToCreateAccountFragment());
         RxView.clicks(logInButton)
-                .subscribe(clicks -> homeScreen.moveToHomeScreenFragment());
+                .subscribe(clicks -> listener.moveToHomeScreenFragment());
     }
 
 }

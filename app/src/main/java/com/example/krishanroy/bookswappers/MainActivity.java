@@ -3,11 +3,8 @@ package com.example.krishanroy.bookswappers;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.example.krishanroy.bookswappers.ui.CreateAccountFragment;
 import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
@@ -16,12 +13,7 @@ import com.example.krishanroy.bookswappers.ui.SignUpLoginFragment;
 import com.example.krishanroy.bookswappers.ui.SplashScreenFragment;
 import com.example.krishanroy.bookswappers.ui.UserDetailsFragment;
 
-public class MainActivity extends AppCompatActivity implements FragmentCommunication,
-        FragmentCommunication.createAccount,
-        FragmentCommunication.homeScreen,
-        FragmentCommunication.detailScreen,
-        FragmentCommunication.sendEmail,
-        FragmentCommunication.loginPage {
+public class MainActivity extends AppCompatActivity implements FragmentCommunication {
 
     private static final String TAG = "Main Activity" ;
 

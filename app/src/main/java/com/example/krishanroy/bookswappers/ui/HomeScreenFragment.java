@@ -2,8 +2,6 @@ package com.example.krishanroy.bookswappers.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,8 +34,6 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     public static final String TAG = "HomeScreenFragment";
     private BookAdapter bookAdapter;
     SearchView searchView;
-    private FragmentCommunication.detailScreen moveToDetailScreenlistener;
-    private FragmentCommunication.sendEmail sendEmailListener;
     private FragmentCommunication listener;
 
     public static HomeScreenFragment newInstance() {
@@ -48,18 +44,6 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof FragmentCommunication.detailScreen) {
-            moveToDetailScreenlistener = (FragmentCommunication.detailScreen) context;
-        } else {
-            throw new RuntimeException(context.toString() +
-                    "must implement FragmentCommunication.detailScreen");
-        }
-        if (context instanceof FragmentCommunication.sendEmail) {
-            sendEmailListener = (FragmentCommunication.sendEmail) context;
-        } else {
-            throw new RuntimeException(context.toString() +
-                    "must implement FragmentCommunication.sendEmail");
-        }
         if (context instanceof FragmentCommunication) {
             listener = (FragmentCommunication) context;
         } else {
@@ -89,7 +73,7 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
         searchView = view.findViewById(R.id.home_screen_searchview);
         searchView.setOnQueryTextListener(this);
 
-        bookAdapter = new BookAdapter(new LinkedList<>(), moveToDetailScreenlistener, sendEmailListener);
+        bookAdapter = new BookAdapter(new LinkedList<>(), listener);
         recyclerView.setAdapter(bookAdapter);
 
         RetrofitSingleton
@@ -102,7 +86,7 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
                         persons -> {
                             Log.d(TAG, "onViewCreated: " + persons.get(0).getImage());
                             this.personsList = persons;
-                            bookAdapter.setData(personsList, moveToDetailScreenlistener, sendEmailListener);
+                            bookAdapter.setData(personsList, listener);
                             recyclerView.setAdapter(bookAdapter);
                             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
                         },
@@ -122,7 +106,7 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
                 newPersonsList.add(p);
             }
         }
-        bookAdapter.setData(newPersonsList, moveToDetailScreenlistener, sendEmailListener);
+        bookAdapter.setData(newPersonsList, listener);
         return false;
     }
 
