@@ -1,8 +1,6 @@
 package com.example.krishanroy.bookswappers.ui.view;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 public class BookViewHolder extends RecyclerView.ViewHolder {
     private FragmentCommunication.detailScreen detailScreen;
+    private FragmentCommunication.sendEmail sendEmail;
     private Persons persons;
     private String email;
     private View view;
@@ -31,9 +30,11 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
 
     @SuppressLint("CheckResult")
     public void onBind(final Persons persons,
-                       final FragmentCommunication.detailScreen detailScreen) {
+                       final FragmentCommunication.detailScreen detailScreen,
+                       final FragmentCommunication.sendEmail sendEmail) {
         this.persons = persons;
         this.detailScreen = detailScreen;
+        this.sendEmail = sendEmail;
         this.email = persons.getEmail();
         TextView bookTitleTextView = itemView.findViewById(R.id.title_textView);
         ImageView bookCoverImageView = itemView.findViewById(R.id.coverpage_imageView);
@@ -60,18 +61,7 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         RxView.clicks(alertDonorNameTextView)
                 .subscribe(fromAlertDialogue -> detailScreen.moveToUserDetailFragment());
         RxView.clicks(alertDonorEmailTextView)
-                .subscribe(sendEmail -> emailToTheBookDonor());
+                .subscribe(email -> sendEmail.sendEmailToTheDonor(persons.getEmail()));
 
-
-    }
-
-    private void emailToTheBookDonor() {
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Hi, I am interested in that book");
-        if (intent.resolveActivity(view.getContext().getPackageManager()) != null) {
-            view.getContext().startActivity(intent);
-        }
     }
 }

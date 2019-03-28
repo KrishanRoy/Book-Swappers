@@ -10,5 +10,8 @@ public interface FragmentCommunication {
     interface detailScreen{
         void moveToUserDetailFragment();
     }
+    interface sendEmail{
+        void sendEmailToTheDonor(String email);
+    }
 
 }
