@@ -52,7 +52,6 @@ public class SplashScreenFragment extends Fragment {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             listener.moveToSignUpLoginFragment();
         }
     }

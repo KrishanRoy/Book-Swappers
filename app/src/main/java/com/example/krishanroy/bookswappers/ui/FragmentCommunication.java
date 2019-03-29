@@ -6,7 +6,7 @@ public interface FragmentCommunication {
     void moveToSignUpLoginFragment();
     void moveToCreateAccountFragment();
     void moveToHomeScreenFragment();
-    void moveToUserDetailFragment();
+    void moveToUserDetailFragment(String name, String city, String email);
     void sendEmailToTheDonor(String email);
 
 }

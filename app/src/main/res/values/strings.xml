@@ -18,4 +18,5 @@
     <string name="check_my_linkedin_text">Check my LinkedIn</string>
     <string name="githublink_of_the_currentproject">https://github.com/KrishanRoy/Book-Swappers</string>
     <string name="linkedIn_link">https://www.linkedin.com/in/krishanroy/</string>
+    <string name="email_the_donor_textview">Email the donor</string>
 </resources>

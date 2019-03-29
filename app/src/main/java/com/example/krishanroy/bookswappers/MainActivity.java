@@ -33,12 +33,12 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
                 .commit();
     }
 
-    private void initiateSignUpLoginFragment() {
+    @Override
+    public void moveToSignUpLoginFragment() {
         SignUpLoginFragment signUpLoginFragment = SignUpLoginFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, signUpLoginFragment)
-                .addToBackStack(getString(R.string.sign_up_button_add_to_back_stack))
                 .commit();
     }
 
@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     }
 
     @Override
-    public void moveToUserDetailFragment() {
-        UserDetailsFragment userDetailsFragment = UserDetailsFragment.newInstance();
+    public void moveToUserDetailFragment(String name, String city, String email) {
+        UserDetailsFragment userDetailsFragment = UserDetailsFragment.newInstance(name, city, email);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, userDetailsFragment)
@@ -101,14 +101,5 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
-    }
-
-    @Override
-    public void moveToSignUpLoginFragment() {
-        SignUpLoginFragment signUpLoginFragment = SignUpLoginFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, signUpLoginFragment)
-                .commit();
     }
 }

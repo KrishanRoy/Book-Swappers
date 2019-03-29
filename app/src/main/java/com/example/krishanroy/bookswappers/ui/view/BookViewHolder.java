@@ -18,8 +18,10 @@ import com.squareup.picasso.Picasso;
 public class BookViewHolder extends RecyclerView.ViewHolder {
     private FragmentCommunication listener;
     private Persons persons;
-    private String email;
     private View view;
+    private String name;
+    private String email;
+    private String city;
 
     public BookViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -28,11 +30,13 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
     }
 
     @SuppressLint("CheckResult")
-    public void onBind( final Persons persons,
+    public void onBind(final Persons persons,
                        final FragmentCommunication listener) {
         this.persons = persons;
         this.listener = listener;
         this.email = persons.getEmail();
+        this.name = persons.getName();
+        this.city = persons.getAddress().getCity();
 
         final TextView bookTitleTextView = itemView.findViewById(R.id.title_textView);
         final ImageView bookCoverImageView = itemView.findViewById(R.id.coverpage_imageView);
@@ -42,7 +46,8 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         Picasso.get().load(persons.getImage()).into(bookCoverImageView);
         locationTextView.setText(persons.getAddress().getCity());
         RxView.clicks(itemView)
-                .subscribe(v -> alertDialoguePopUp());
+                .subscribe(click -> alertDialoguePopUp());
+
     }
 
     @SuppressLint("CheckResult")
@@ -61,9 +66,9 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         builder.show();
 
         RxView.clicks(alertDonorNameTextView)
-                .subscribe(fromAlertDialogue -> listener.moveToUserDetailFragment());
-        RxView.clicks(alertDonorEmailTextView)
-                .subscribe(email -> listener.sendEmailToTheDonor(persons.getEmail()));
+                .subscribe(fromAlertDialogue -> listener.moveToUserDetailFragment(name, city, email));
+//        RxView.clicks(alertDonorEmailTextView)
+//                .subscribe(email -> listener.sendEmailToTheDonor(persons.getEmail()));
 
     }
 }
