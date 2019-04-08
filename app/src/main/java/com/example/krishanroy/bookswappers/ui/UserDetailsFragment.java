@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.krishanroy.bookswappers.R;
@@ -26,7 +27,7 @@ public class UserDetailsFragment extends Fragment {
     private String donorCity;
     private String donorEmail;
 
-    public static UserDetailsFragment newInstance(String name, String city, String email){
+    public static UserDetailsFragment newInstance(String name, String city, String email) {
         UserDetailsFragment userDetailsFragment = new UserDetailsFragment();
         Bundle args = new Bundle();
         args.putString(NAME_KEY, name);
@@ -35,6 +36,7 @@ public class UserDetailsFragment extends Fragment {
         userDetailsFragment.setArguments(args);
         return userDetailsFragment;
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -45,10 +47,11 @@ public class UserDetailsFragment extends Fragment {
                     "must implement FragmentCommunication");
         }
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments() != null){
+        if (getArguments() != null) {
             donorName = getArguments().getString(NAME_KEY);
             donorCity = getArguments().getString(CITY_KEY);
             donorEmail = getArguments().getString(EMAIL_KEY);
@@ -68,12 +71,15 @@ public class UserDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         TextView nameTextView = view.findViewById(R.id.detail_fragment_name_textView);
         TextView cityTextView = view.findViewById(R.id.detail_fragment_city_textView);
-        TextView emailTextView = view.findViewById(R.id.detail_fragment_email_textView);
+        Button emailButton = view.findViewById(R.id.detail_fragment_email_button);
+        Button sendTextButton = view.findViewById(R.id.detail_fragment_send_text_button);
 
         nameTextView.setText(donorName);
-        Log.d(TAG, "onViewCreated: "+ donorName);
+        Log.d(TAG, "onViewCreated: " + donorName);
         cityTextView.setText(donorCity);
-        RxView.clicks(emailTextView)
+        RxView.clicks(emailButton)
                 .subscribe(click -> listener.sendEmailToTheDonor(donorEmail));
+        RxView.clicks(sendTextButton)
+                .subscribe(click -> listener.moveToTextFragment());
     }
 }

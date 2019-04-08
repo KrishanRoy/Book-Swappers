@@ -14,17 +14,19 @@ import com.example.krishanroy.bookswappers.R;
 
 public class SplashScreenFragment extends Fragment {
     private FragmentCommunication listener;
+    private long totalTime = 1500;
+    Thread splashTread;
 
-    public static SplashScreenFragment newInstance(){
+    public static SplashScreenFragment newInstance() {
         return new SplashScreenFragment();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof FragmentCommunication){
+        if (context instanceof FragmentCommunication) {
             listener = (FragmentCommunication) context;
-        }else{
+        } else {
             throw new RuntimeException(context.toString() +
                     " must implement FragmentCommunication");
         }
@@ -40,21 +42,20 @@ public class SplashScreenFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        LogoLauncher logoLauncher = new LogoLauncher();
-        logoLauncher.start();
-    }
-
-    private class LogoLauncher extends Thread {
-        public void run() {
-
-            try {
-                sleep(1200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        splashTread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    synchronized (this) {
+                        wait(totalTime);
+                    }
+                } catch (InterruptedException e) {
+                } finally {
+                    listener.moveToSignUpLoginFragment();
+                }
             }
-            listener.moveToSignUpLoginFragment();
-        }
+        };
+        splashTread.start();
     }
-
-    }
+}
 

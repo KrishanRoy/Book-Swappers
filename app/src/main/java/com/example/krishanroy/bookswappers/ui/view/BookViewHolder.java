@@ -63,10 +63,17 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         Picasso.get().load(persons.getImage()).into(alertImageView);
         alertDonorEmailTextView.setText(persons.getEmail());
         builder.setView(view);
-        builder.show();
+        builder.setCancelable(true);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
 
         RxView.clicks(alertDonorNameTextView)
-                .subscribe(fromAlertDialogue -> listener.moveToUserDetailFragment(name, city, email));
+                .subscribe(fromAlertDialogue -> {
+                    dialog.dismiss();
+                    listener.moveToUserDetailFragment(name, city, email);
+
+                });
 //        RxView.clicks(alertDonorEmailTextView)
 //                .subscribe(email -> listener.sendEmailToTheDonor(persons.getEmail()));
 

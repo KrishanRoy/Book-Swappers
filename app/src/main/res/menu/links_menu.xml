@@ -6,5 +6,8 @@
     <item
         android:id="@+id/menu_linkedin_link"
         android:title="@string/check_my_linkedin_text" />
+    <item
+        android:id="@+id/menu_sign_out"
+        android:title="@string/sign_out" />
 
 </menu>
