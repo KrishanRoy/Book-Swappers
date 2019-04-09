@@ -1,10 +1,36 @@
 <resources>
     <string name="app_name">Book Swappers</string>
-    <string name="front_page_app_summary_textview_text">Donate and recieve your precious books</string>
+    <string name="front_page_app_summary_textview_text">Donate and receive your precious books</string>
     <string name="sign_up_button_text">Sign up for free</string>
     <string name="log_in_button_text">log in</string>
     <string name="create_your_account_textview">Create Your Account</string>
     <string name="enter_your_email__to_create_account_edittext">Enter your email</string>
-    <string name="create_account_choose_a_password_edittext">Choose a password</string>
+    <string name="create_account_choose_a_password_edittext">Choose a 6 character password</string>
     <string name="password_regulation_textview">Password must be 6 characers long</string>
+    <string name="homescreen_add_toBackstack">homeScreen</string>
+    <string name="user_detail_add_to_backstack">userdetail</string>
+    <string name="email_toDonor_text">Hi, I am interested in that book</string>
+    <string name="create_account_add_to_backStack">createAccount</string>
+    <string name="sign_up_button_add_to_back_stack">signUpLogin</string>
+    <string name="alertdialog_name_textview">TextView</string>
+    <string name="alertDialogue_email_textview">TextView</string>
+    <string name="github_link_text">Github link</string>
+    <string name="check_my_linkedin_text">Check my LinkedIn</string>
+    <string name="githublink_of_the_currentproject">https://github.com/KrishanRoy/Book-Swappers</string>
+    <string name="linkedIn_link">https://www.linkedin.com/in/krishanroy/</string>
+    <string name="email_the_donor_textview">Email the donor</string>
+    <string name="register_new_user_text">Register</string>
+    <string name="login_password_hint">enter your password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="send_text_fragment_edittext_text">Enter your message</string>
+    <string name="detail_frag_send_a_text_button">send a text</string>
+    <string name="send_button_text_fragment">Send</string>
+    <string name="sign_out">Sign out</string>
+    <string name="login_fragment_failed_toast_text">Login Failed, Try Again!</string>
+    <string name="login_frag_enter_password_toast">Enter password!</string>
+    <string name="login_frag_enter_email_toast">Enter email address!</string>
+    <string name="enter_location_edit_text">Enter your Location</string>
+    <string name="enter_your_name_edit_text">Enter your name</string>
 </resources>

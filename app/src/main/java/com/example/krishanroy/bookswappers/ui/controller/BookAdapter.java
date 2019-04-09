@@ -14,15 +14,11 @@ import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
     List<Persons> personsList;
-    FragmentCommunication.detailScreen detailScreen;
-    FragmentCommunication.sendEmail sendEmail;
+    FragmentCommunication listener;
 
-    public BookAdapter(List<Persons> personsList,
-                       FragmentCommunication.detailScreen detailScreen,
-                       FragmentCommunication.sendEmail sendEmail) {
+    public BookAdapter(List<Persons> personsList, FragmentCommunication listener) {
         this.personsList = personsList;
-        this.detailScreen = detailScreen;
-        this.sendEmail = sendEmail;
+        this.listener = listener;
     }
 
     @NonNull
@@ -33,7 +29,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder bookViewHolder, int position) {
-        bookViewHolder.onBind(personsList.get(position), detailScreen, sendEmail);
+        bookViewHolder.onBind(personsList.get(position), listener);
     }
 
     @Override
@@ -42,11 +38,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
     }
 
     public void setData(List<Persons> personsList,
-                        final FragmentCommunication.detailScreen detailScreen,
-                        final FragmentCommunication.sendEmail sendEmail) {
+                        final FragmentCommunication listener) {
         this.personsList = personsList;
-        this.detailScreen = detailScreen;
-        this.sendEmail = sendEmail;
+        this.listener = listener;
         notifyDataSetChanged();
     }
 }
