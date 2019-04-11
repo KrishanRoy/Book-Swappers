@@ -7,17 +7,17 @@ import android.view.ViewGroup;
 
 import com.example.krishanroy.bookswappers.R;
 import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
-import com.example.krishanroy.bookswappers.ui.model.Persons;
+import com.example.krishanroy.bookswappers.ui.model.Book;
 import com.example.krishanroy.bookswappers.ui.view.BookViewHolder;
 
 import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
-    List<Persons> personsList;
+    List<Book> booksList;
     FragmentCommunication listener;
 
-    public BookAdapter(List<Persons> personsList, FragmentCommunication listener) {
-        this.personsList = personsList;
+    public BookAdapter(List<Book> booksList, FragmentCommunication listener) {
+        this.booksList = booksList;
         this.listener = listener;
     }
 
@@ -29,17 +29,17 @@ public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder bookViewHolder, int position) {
-        bookViewHolder.onBind(personsList.get(position), listener);
+        bookViewHolder.onBind(booksList.get(position), listener);
     }
 
     @Override
     public int getItemCount() {
-        return personsList.size();
+        return booksList.size();
     }
 
-    public void setData(List<Persons> personsList,
+    public void setData(List<Book> booksList,
                         final FragmentCommunication listener) {
-        this.personsList = personsList;
+        this.booksList = booksList;
         this.listener = listener;
         notifyDataSetChanged();
     }

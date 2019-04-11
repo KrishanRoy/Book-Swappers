@@ -1,11 +1,13 @@
 package com.example.krishanroy.bookswappers.ui;
 
+import com.example.krishanroy.bookswappers.ui.model.AppUsers;
+
 public interface FragmentCommunication {
     void openTheGitHubLink();
 
     void openTheLinkedInPage();
 
-    void moveToSignUpLoginFragment();
+    void moveToSignUpLoginFragment(AppUsers appUsers);
 
     void moveToCreateNewAccountFragment();
 
@@ -21,5 +23,11 @@ public interface FragmentCommunication {
 
     void signOutFromTheApp();
 
-    void finishFragment();
+    void finishHomeScreenFragment();
+
+
+
+    void finishCreateAccountFragment();
+
+    void moveToUploadNewBooksFragment();
 }

@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,9 +27,12 @@ import android.widget.Toast;
 
 import com.example.krishanroy.bookswappers.R;
 import com.example.krishanroy.bookswappers.ui.controller.BookAdapter;
-import com.example.krishanroy.bookswappers.ui.model.Persons;
-import com.example.krishanroy.bookswappers.ui.network.PersonService;
-import com.example.krishanroy.bookswappers.ui.network.RetrofitSingleton;
+import com.example.krishanroy.bookswappers.ui.model.Book;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jakewharton.rxbinding3.view.RxView;
 
 import java.io.File;
@@ -40,14 +42,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-import static android.app.Activity.RESULT_OK;
-import static android.telephony.MbmsDownloadSession.RESULT_CANCELLED;
 
 public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTextListener {
-    List<Persons> personsList;
+    List<Book> bookList;
     public static final String TAG = "HomeScreenFragment";
     private BookAdapter bookAdapter;
     SearchView searchView;
@@ -56,6 +53,9 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     private ImageView imageView;
     private String currentPhotoPath;
     private static final int REQUEST_TAKE_PHOTO = 1;
+    private FloatingActionButton fabCamera;
+
+    private DatabaseReference bookDatabaseReference;
 
 
     public static HomeScreenFragment newInstance() {
@@ -78,8 +78,6 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-
-
     }
 
     @Nullable
@@ -96,27 +94,32 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
         RecyclerView recyclerView = view.findViewById(R.id.book_recycler_view);
         searchView = view.findViewById(R.id.home_screen_searchview);
         searchView.setOnQueryTextListener(this);
-        FloatingActionButton fab = view.findViewById(R.id.add_books_fab);
-        RxView.clicks(fab).subscribe(clicks -> takePicturesAndSave());
+        fabCamera = view.findViewById(R.id.add_books_with_camera_fab);
+        RxView.clicks(fabCamera).subscribe(clicks -> listener.moveToUploadNewBooksFragment());
+        bookDatabaseReference = FirebaseDatabase.getInstance().getReference(UploadNewBooksFragment.BOOK_REFERENCE);
 
-        bookAdapter = new BookAdapter(new LinkedList<>(), listener);
+        bookList = new LinkedList<>();
+        bookAdapter = new BookAdapter(bookList, listener);
         recyclerView.setAdapter(bookAdapter);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
-        RetrofitSingleton
-                .getInstance()
-                .create(PersonService.class)
-                .getPersons()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        persons -> {
-                            Log.d(TAG, "onViewCreated: " + persons.get(0).getImage());
-                            this.personsList = persons;
-                            bookAdapter.setData(personsList, listener);
-                            //recyclerView.setAdapter(bookAdapter);
-                        },
-                        throwable -> Log.e(TAG, "onFailure: " + throwable));
+        bookDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                bookList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Book book = ds.getValue(Book.class);
+                    bookList.add(book);
+                }
+                bookAdapter.setData(bookList, listener);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(requireContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void takePicturesAndSave() {
@@ -152,14 +155,8 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            //do something
-        } else if (resultCode == RESULT_CANCELLED) {
-            // User Cancelled the action
-            Toast.makeText(requireContext(), "cancelled image capturing", Toast.LENGTH_SHORT).show();
-        }
-    }
 
+    }
 
     @Override
     public boolean onQueryTextSubmit(String s) {
@@ -168,13 +165,13 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
 
     @Override
     public boolean onQueryTextChange(String s) {
-        List<Persons> newPersonsList = new LinkedList<>();
-        for (Persons p : personsList) {
-            if (p.getAddress().getCity().toLowerCase().startsWith(s.toLowerCase())) {
-                newPersonsList.add(p);
+        List<Book> newBooksList = new LinkedList<>();
+        for (Book b : bookList) {
+            if (b.getUploaderCity().toLowerCase().startsWith(s.toLowerCase())) {
+                newBooksList.add(b);
             }
         }
-        bookAdapter.setData(newPersonsList, listener);
+        bookAdapter.setData(newBooksList, listener);
         return false;
     }
 

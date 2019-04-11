@@ -31,6 +31,12 @@
     <string name="login_fragment_failed_toast_text">Login Failed, Try Again!</string>
     <string name="login_frag_enter_password_toast">Enter password!</string>
     <string name="login_frag_enter_email_toast">Enter email address!</string>
-    <string name="enter_location_edit_text">Enter your Location</string>
+    <string name="enter_location_edit_text">Enter your City:</string>
     <string name="enter_your_name_edit_text">Enter your name</string>
+    <string name="create_account_frag_state_edit_text">state:</string>
+    <string name="open_image_gallery_button">open gallery</string>
+    <string name="up_new_books_frag_book_title_et">Book title</string>
+    <string name="up_new_books_frag_author_name_et">Author name</string>
+    <string name="up_new_books_frag_upload_btn">upload</string>
+    <string name="up_new_books_frag_done_button">Done</string>
 </resources>
