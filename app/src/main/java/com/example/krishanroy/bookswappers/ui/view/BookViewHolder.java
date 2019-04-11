@@ -33,7 +33,7 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    //    @SuppressLint("CheckResult")
+    //
 //    public void onBind(final Persons persons,
 //                       final FragmentCommunication listener) {
 //        this.persons = persons;
@@ -53,14 +53,17 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
 //                .subscribe(click -> alertDialoguePopUp());
 //
 //    }
+    @SuppressLint("CheckResult")
     public void onBind(final Book book,
                        final FragmentCommunication listener) {
         this.book = book;
         this.listener = listener;
+        this.email = book.getUploaderEmail();
+        this.name = book.getUploaderName();
+        this.city = book.getUploaderCity();
         final TextView bookTitleTextView = itemView.findViewById(R.id.title_textView);
         final ImageView bookCoverImageView = itemView.findViewById(R.id.coverpage_imageView);
         final TextView locationTextView = itemView.findViewById(R.id.location_textView);
-        //Log.d(TAG, "onBind: " + book.getBookImage());
 
         bookTitleTextView.setText(book.getTitle());
         Log.d(TAG, "onBind: " + book.getBookImage());
@@ -70,8 +73,9 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
                 .fit()
                 .centerCrop()
                 .into(bookCoverImageView);
-        //Glide.with(itemView.getContext()).load(book.getBookImage()).into(bookCoverImageView);
         locationTextView.setText(book.getUploaderCity());
+        RxView.clicks(itemView)
+                .subscribe(click -> alertDialoguePopUp());
     }
 
     @SuppressLint("CheckResult")
@@ -83,23 +87,18 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         final TextView alertDonorEmailTextView = view.findViewById(R.id.alertd_email_donor_textView);
         final ImageView alertImageView = view.findViewById(R.id.alert_imageView);
 
-        alertDonorNameTextView.setText(persons.getName());
-        Picasso.get().load(persons.getImage()).into(alertImageView);
-        alertDonorEmailTextView.setText(persons.getEmail());
+        alertDonorNameTextView.setText(name);
+        Picasso.get().load(book.getBookImage()).into(alertImageView);
+        alertDonorEmailTextView.setText(email);
         builder.setView(view);
         builder.setCancelable(true);
         AlertDialog dialog = builder.create();
         dialog.show();
-
-
         RxView.clicks(alertDonorNameTextView)
                 .subscribe(fromAlertDialogue -> {
                     dialog.dismiss();
                     listener.moveToUserDetailFragment(name, city, email);
 
                 });
-//        RxView.clicks(alertDonorEmailTextView)
-//                .subscribe(email -> listener.sendEmailToTheDonor(persons.getEmail()));
-
     }
 }
