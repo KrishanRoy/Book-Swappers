@@ -25,7 +25,7 @@ public interface FragmentCommunication {
 
     void finishHomeScreenFragment();
 
-
+    void moveToUserProfileFragment();
 
     void finishCreateAccountFragment();
 

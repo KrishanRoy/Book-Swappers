@@ -167,7 +167,10 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     public boolean onQueryTextChange(String s) {
         List<Book> newBooksList = new LinkedList<>();
         for (Book b : bookList) {
-            if (b.getUploaderCity().toLowerCase().startsWith(s.toLowerCase())) {
+            if (b.getUploaderCity().toLowerCase().startsWith(s.toLowerCase()) ||
+                    b.getAuthor().toLowerCase().startsWith(s.toLowerCase()) ||
+                    b.getTitle().toLowerCase().startsWith(s.toLowerCase()) ||
+                    b.getUploaderName().toLowerCase().startsWith(s.toLowerCase())) {
                 newBooksList.add(b);
             }
         }
@@ -190,6 +193,8 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
                 listener.openTheGitHubLink();
             case R.id.menu_linkedin_link:
                 listener.openTheLinkedInPage();
+            case R.id.user_profile_menu:
+                listener.moveToUserProfileFragment();
             case R.id.menu_sign_out:
                 listener.signOutFromTheApp();
         }

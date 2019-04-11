@@ -39,4 +39,5 @@
     <string name="up_new_books_frag_author_name_et">Author name</string>
     <string name="up_new_books_frag_upload_btn">upload</string>
     <string name="up_new_books_frag_done_button">Done</string>
+    <string name="user_profile_menu">Profile</string>
 </resources>

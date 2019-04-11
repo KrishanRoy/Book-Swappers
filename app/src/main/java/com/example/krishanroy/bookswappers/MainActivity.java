@@ -18,6 +18,7 @@ import com.example.krishanroy.bookswappers.ui.SplashScreenFragment;
 import com.example.krishanroy.bookswappers.ui.TextSendDisplayFragment;
 import com.example.krishanroy.bookswappers.ui.UploadNewBooksFragment;
 import com.example.krishanroy.bookswappers.ui.UserDetailsFragment;
+import com.example.krishanroy.bookswappers.ui.UserProfileFragment;
 import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -172,6 +173,15 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(HomeScreenFragment.newInstance())
+                .commit();
+    }
+
+    @Override
+    public void moveToUserProfileFragment() {
+        UserProfileFragment userProfileFragment = UserProfileFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, userProfileFragment)
                 .commit();
     }
 
