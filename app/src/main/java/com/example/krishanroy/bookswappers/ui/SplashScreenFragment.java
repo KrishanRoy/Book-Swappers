@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.krishanroy.bookswappers.R;
+import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 
 public class SplashScreenFragment extends Fragment {
     private FragmentCommunication listener;
@@ -51,7 +52,7 @@ public class SplashScreenFragment extends Fragment {
                     }
                 } catch (InterruptedException e) {
                 } finally {
-                    listener.moveToSignUpLoginFragment();
+                    listener.moveToSignUpLoginFragment(new AppUsers());
                 }
             }
         };

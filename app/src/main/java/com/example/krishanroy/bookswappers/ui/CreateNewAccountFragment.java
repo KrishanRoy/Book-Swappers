@@ -14,19 +14,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.krishanroy.bookswappers.R;
+import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.jakewharton.rxbinding3.view.RxView;
 
-import org.jetbrains.annotations.NotNull;
-
-import io.reactivex.disposables.Disposable;
-
 public class CreateNewAccountFragment extends Fragment {
-    EditText enterEmail, enterPassword;
-    Button registerNewUser;
+    private EditText enterName, enterCity, enterState, enterEmail, enterPassword;
+    private Button registerNewUser;
     FirebaseAuth firebaseAuth;
     FragmentCommunication listener;
+    private FirebaseDatabase firebaseDatabase;
+    //private DatabaseReference appUsersDatabaseReference;
+    private String userName, userCity, userState, userEmail, userPassword;
+
+
+    public static CreateNewAccountFragment newInstance() {
+        return new CreateNewAccountFragment();
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -37,10 +43,6 @@ public class CreateNewAccountFragment extends Fragment {
             throw new RuntimeException(context.toString() +
                     "must implement FragmentCommunication");
         }
-    }
-
-    public static CreateNewAccountFragment newInstance() {
-        return new CreateNewAccountFragment();
     }
 
     @Override
@@ -58,52 +60,69 @@ public class CreateNewAccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        enterEmail = view.findViewById(R.id.create_account_username_edittext);
-        enterPassword = view.findViewById(R.id.create_account_password_edittext);
+        findViewByIds(view);
         registerNewUser = view.findViewById(R.id.register_user_button);
         firebaseAuth = FirebaseAuth.getInstance();
-
-        registerNewUser();
+        //firebaseDatabase = FirebaseDatabase.getInstance();
+        RxView.clicks(registerNewUser)
+                .subscribe(click -> {
+                    registerUser();
+                });
     }
 
-    @NotNull
-    private Disposable registerNewUser() {
-        return RxView.clicks(registerNewUser)
-                .subscribe(click -> {
-                    String email = enterEmail.getText().toString().trim();
-                    String password = enterPassword.getText().toString().trim();
-                    if (email.length() > 0 && password.length() >= 6) {
-                        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                                .addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(requireContext(), "Registration Successful!", Toast.LENGTH_SHORT).show();
-                                        sendVerificationEmailToTheNewUser();
-                                        //listener.moveToHomeScreenFragment();
-                                    } else {
-                                        Toast.makeText(requireContext(), "Try Again Please!", Toast.LENGTH_SHORT).show();
-                                    }
+    private void registerUser() {
+        userName = enterName.getText().toString().trim();
+        userCity = enterCity.getText().toString().trim();
+        userState = enterState.getText().toString().trim();
+        userEmail = enterEmail.getText().toString().trim();
+        userPassword = enterPassword.getText().toString().trim();
+        if (userName.length() > 0
+                && userCity.length() > 0
+                && userState.length() > 0
+                && userEmail.length() > 0
+                && userPassword.length() >= 6) {
+            firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(requireContext(), "Registration Successful!", Toast.LENGTH_SHORT).show();
+                            sendVerificationEmailToTheNewUser();
+                        } else {
+                            Toast.makeText(requireContext(), "Try Again Please!", Toast.LENGTH_SHORT).show();
+                        }
 
-                                });
-                    } else {
-                        enterEmail.setError("Enter input to proceed");
-                    }
-                });
+                    });
+        } else {
+            enterEmail.setError("Enter all input to proceed");
+        }
     }
 
     private void sendVerificationEmailToTheNewUser() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            user.sendEmailVerification().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    Toast.makeText(requireContext(), "Email Verification Sent! Check Your Email", Toast.LENGTH_SHORT).show();
-                    firebaseAuth.signOut();
-                    listener.finishFragment();
-                    listener.moveToSignUpLoginFragment();
-                } else {
-                    Toast.makeText(requireContext(), "verification couldn't be sent! check soon!", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+        //appUsersDatabaseReference = firebaseDatabase.getReference(("/appUsers/" + user.getUid()));
+        user.sendEmailVerification().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(requireContext(), "Email Verification is Sent! Check Your Email", Toast.LENGTH_SHORT).show();
+                firebaseAuth.signOut();
+                listener.finishCreateAccountFragment();
+                listener.moveToSignUpLoginFragment(
+                        new AppUsers(
+                                enterName.getText().toString(),
+                                enterCity.getText().toString(),
+                                enterState.getText().toString(),
+                                enterEmail.getText().toString())
+                );
+            } else {
+                Toast.makeText(requireContext(), "verification will be sent soon! check soon!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+
+    private void findViewByIds(@NonNull View view) {
+        enterName = view.findViewById(R.id.create_account_name_edittext);
+        enterCity = view.findViewById(R.id.create_account_city_edittext);
+        enterState = view.findViewById(R.id.create_account_state_edittext);
+        enterEmail = view.findViewById(R.id.create_account_useremail_edittext);
+        enterPassword = view.findViewById(R.id.create_account_password_edittext);
+    }
 }

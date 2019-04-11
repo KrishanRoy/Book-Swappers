@@ -16,8 +16,11 @@ import com.example.krishanroy.bookswappers.ui.HomeScreenFragment;
 import com.example.krishanroy.bookswappers.ui.LoginFragment;
 import com.example.krishanroy.bookswappers.ui.SplashScreenFragment;
 import com.example.krishanroy.bookswappers.ui.TextSendDisplayFragment;
+import com.example.krishanroy.bookswappers.ui.UploadNewBooksFragment;
 import com.example.krishanroy.bookswappers.ui.UserDetailsFragment;
+import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     private static final String TAG = "Main Activity";
     public static final int RC_SIGN_IN = 1;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference messagesDatabaseReference;
+    private DatabaseReference appUsersDatabaseReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private String editTextText;
@@ -49,8 +52,10 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         setContentView(R.layout.activity_main);
         initiateSplashScreen();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        messagesDatabaseReference = firebaseDatabase.getReference().child("messages");
         firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        //appUsersDatabaseReference = firebaseDatabase.getReference("/appUsers/" + user.getUid());
+
     }
 
     private void initiateSplashScreen() {
@@ -62,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     }
 
     @Override
-    public void moveToSignUpLoginFragment() {
-        LoginFragment loginFragment = LoginFragment.newInstance();
+    public void moveToSignUpLoginFragment(AppUsers appUsers) {
+        LoginFragment loginFragment = LoginFragment.newInstance(appUsers);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, loginFragment)
@@ -86,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, homeScreenFragment)
-                .addToBackStack(null)
                 .commit();
     }
 
@@ -160,12 +164,34 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     @Override
     public void signOutFromTheApp() {
         FirebaseAuth.getInstance().signOut();
-        moveToSignUpLoginFragment();
+        moveToSignUpLoginFragment(new AppUsers());
     }
 
     @Override
-    public void finishFragment() {
-        getSupportFragmentManager().beginTransaction().remove(HomeScreenFragment.newInstance()).commit();
+    public void finishHomeScreenFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(HomeScreenFragment.newInstance())
+                .commit();
+    }
+
+    @Override
+    public void finishCreateAccountFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(CreateNewAccountFragment.newInstance())
+                .commit();
+
+    }
+
+    @Override
+    public void moveToUploadNewBooksFragment() {
+        UploadNewBooksFragment uploadNewBooksFragment = UploadNewBooksFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, uploadNewBooksFragment)
+                .addToBackStack("up")
+                .commit();
     }
 
     private File createImageFile() throws IOException {
