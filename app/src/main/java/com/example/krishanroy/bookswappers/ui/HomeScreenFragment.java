@@ -62,6 +62,8 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
         return new HomeScreenFragment();
     }
 
+    public HomeScreenFragment() {
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -191,12 +193,17 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
         switch (item.getItemId()) {
             case R.id.menu_github_link:
                 listener.openTheGitHubLink();
+                break;
             case R.id.menu_linkedin_link:
                 listener.openTheLinkedInPage();
+                break;
             case R.id.user_profile_menu:
                 listener.moveToUserProfileFragment();
+                break;
             case R.id.menu_sign_out:
                 listener.signOutFromTheApp();
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

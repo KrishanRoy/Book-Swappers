@@ -175,6 +175,13 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
                 .remove(HomeScreenFragment.newInstance())
                 .commit();
     }
+    @Override
+    public void finishLoginScreenFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(LoginFragment.newInstance(new AppUsers()))
+                .commit();
+    }
 
     @Override
     public void moveToUserProfileFragment() {

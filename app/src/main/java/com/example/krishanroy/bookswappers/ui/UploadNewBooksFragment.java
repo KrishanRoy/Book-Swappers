@@ -111,6 +111,7 @@ public class UploadNewBooksFragment extends Fragment {
         currentUserReference = FirebaseDatabase.getInstance().getReference("/appUsers/" + CURRENT_USER_ID);
         currentUserReference.addValueEventListener(valueEventListener);
     }
+
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

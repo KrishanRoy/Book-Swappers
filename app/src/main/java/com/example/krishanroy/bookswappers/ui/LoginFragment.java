@@ -83,11 +83,10 @@ public class LoginFragment extends Fragment {
         user = firebaseAuth.getCurrentUser();
         progressDialog = new ProgressDialog(requireContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         if (user != null) {
-            listener.finishHomeScreenFragment();
+            listener.finishLoginScreenFragment();
             listener.moveToHomeScreenFragment();
         }
 
@@ -130,6 +129,7 @@ public class LoginFragment extends Fragment {
     private void checkIfEmailVerificationIsDone() {
         user = firebaseAuth.getCurrentUser();
         appUsersDatabaseReference = firebaseDatabase.getReference("/appUsers/" + user.getUid());
+        //appUsersDatabaseReference = firebaseDatabase.getReference("/appUsers/" + user.getUid());
         if (user != null) {
             if (user.isEmailVerified()) {
                 appUsersDatabaseReference.setValue(appUsers);

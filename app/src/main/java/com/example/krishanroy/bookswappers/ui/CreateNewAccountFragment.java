@@ -34,6 +34,9 @@ public class CreateNewAccountFragment extends Fragment {
         return new CreateNewAccountFragment();
     }
 
+    public CreateNewAccountFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

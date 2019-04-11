@@ -37,6 +37,9 @@ public class UserDetailsFragment extends Fragment {
         return userDetailsFragment;
     }
 
+    public UserDetailsFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

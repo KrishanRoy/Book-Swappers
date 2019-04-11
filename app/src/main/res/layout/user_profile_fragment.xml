@@ -12,10 +12,12 @@
         android:layout_marginBottom="500dp"
         tools:android="user name"
         android:textSize="20sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/textview_background"/>
 
     <TextView
         android:id="@+id/user_profile_city"
@@ -24,10 +26,12 @@
         android:layout_marginBottom="400dp"
         tools:android="user city"
         android:textSize="20sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/textview_background"/>
 
     <TextView
         android:id="@+id/user_profile_state"
@@ -36,10 +40,12 @@
         android:layout_marginBottom="300dp"
         tools:android="user state"
         android:textSize="15sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/textview_background"/>
 
     <TextView
         android:id="@+id/user_profile_email"
@@ -48,10 +54,12 @@
         android:layout_marginBottom="200dp"
         tools:android="user email"
         android:textSize="15sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/textview_background"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/user_profile_book_recycler_view"

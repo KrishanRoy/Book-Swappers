@@ -22,6 +22,9 @@ public class SplashScreenFragment extends Fragment {
         return new SplashScreenFragment();
     }
 
+    public SplashScreenFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

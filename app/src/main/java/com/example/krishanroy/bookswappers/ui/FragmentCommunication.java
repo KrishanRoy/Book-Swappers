@@ -30,4 +30,5 @@ public interface FragmentCommunication {
     void finishCreateAccountFragment();
 
     void moveToUploadNewBooksFragment();
+    void finishLoginScreenFragment();
 }
