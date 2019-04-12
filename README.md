@@ -21,8 +21,8 @@ to check the distribution of the tasks.
 
 - No one can sell any books
 - One should not provide their home address or cell phone number to a collector and instead connect through the app and meet in a place that is most beneficial to the donor.
- 
- Splash Screen
+
+## Layout Screenshots
  
 <img src="https://user-images.githubusercontent.com/44322211/56062104-5f020e00-5d39-11e9-86aa-7ce783514939.jpg" width="300">
 <img src="https://user-images.githubusercontent.com/44322211/56062910-ebadcb80-5d3b-11e9-81bb-87e1359d51c6.jpg" width="300">
