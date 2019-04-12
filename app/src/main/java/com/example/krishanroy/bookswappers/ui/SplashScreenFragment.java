@@ -55,7 +55,7 @@ public class SplashScreenFragment extends Fragment {
                     }
                 } catch (InterruptedException e) {
                 } finally {
-                    listener.navigateTo(LoginFragment.newInstance(new AppUsers()));
+                    listener.navigateTo(LoginFragment.newInstance());
                 }
             }
         };

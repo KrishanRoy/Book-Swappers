@@ -4,7 +4,6 @@ public class Book {
     private String title;
     private String author;
     private String bookImage;
-    private String timeStamp;
     private String uploaderCity;
     private String uploaderName;
     private String uploaderEmail;
@@ -16,19 +15,6 @@ public class Book {
         this.uploaderCity = uploaderCity;
         this.uploaderName = uploaderName;
         this.uploaderEmail = uploaderEmail;
-    }
-
-    public Book(String title, String author, String bookImage, String timeStamp) {
-        this.title = title;
-        this.author = author;
-        this.bookImage = bookImage;
-        this.timeStamp = timeStamp;
-    }
-
-    public Book(String title, String author, String bookImage) {
-        this.title = title;
-        this.author = author;
-        this.bookImage = bookImage;
     }
 
     public Book() {
@@ -56,9 +42,5 @@ public class Book {
 
     public String getBookImage() {
         return bookImage;
-    }
-
-    public String getTimeStamp() {
-        return timeStamp;
     }
 }

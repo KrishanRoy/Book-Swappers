@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     private static final int REQUEST_TAKE_PHOTO = 1;
     private String currentPhotoPath;
 
-    private static final String BACK_STACK_ROOT_TAG = "root_fragment";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
 
     @Override
     public void moveToSignUpLoginFragment(AppUsers appUsers) {
-        LoginFragment loginFragment = LoginFragment.newInstance(appUsers);
+        LoginFragment loginFragment = LoginFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, loginFragment)
@@ -108,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     @Override
     public void signOutFromTheApp() {
         FirebaseAuth.getInstance().signOut();
-        moveToSignUpLoginFragment(new AppUsers());
+        navigateTo(LoginFragment.newInstance());
     }
 
     @Override

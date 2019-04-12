@@ -108,4 +108,10 @@ public class ProfileUpdateFragment extends Fragment {
         updateProfileButton = view.findViewById(R.id.update_user_profile_button);
 
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        databaseReference.removeEventListener(valueEventListener);
+    }
 }

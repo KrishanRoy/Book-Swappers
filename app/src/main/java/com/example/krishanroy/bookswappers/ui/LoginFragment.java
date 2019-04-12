@@ -33,17 +33,12 @@ public class LoginFragment extends Fragment {
     private ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
-    private AppUsers appUsers;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference appUsersDatabaseReference;
 
 
-    public static LoginFragment newInstance(AppUsers appUsers) {
-        LoginFragment loginFragment = new LoginFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(USER_INFO, appUsers);
-        loginFragment.setArguments(args);
-        return loginFragment;
+    public static LoginFragment newInstance() {
+        return new LoginFragment();
     }
 
     public LoginFragment() {
@@ -60,15 +55,6 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            appUsers = getArguments().getParcelable(USER_INFO);
-        } else {
-            Log.w(TAG, "onCreate: " + "arguments expected but missing");
-        }
-    }
 
     @Nullable
     @Override
@@ -93,7 +79,6 @@ public class LoginFragment extends Fragment {
         }
 
         RxView.clicks(signUpButton).subscribe(clicks -> listener.navigateTo(CreateNewAccountFragment.newInstance()));
-
         RxView.clicks(loginButton).subscribe(clicks -> authenticateAndLogin());
 
     }

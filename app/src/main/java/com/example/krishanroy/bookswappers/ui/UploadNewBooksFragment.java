@@ -197,4 +197,10 @@ public class UploadNewBooksFragment extends Fragment {
         bookPreviewImageView = view.findViewById(R.id.book_preview_imageview);
         progressBar = view.findViewById(R.id.up_new_books_frag_progress_bar);
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        currentUserReference.removeEventListener(valueEventListener);
+    }
 }

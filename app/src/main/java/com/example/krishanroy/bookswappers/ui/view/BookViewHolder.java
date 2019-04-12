@@ -14,13 +14,11 @@ import com.example.krishanroy.bookswappers.R;
 import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
 import com.example.krishanroy.bookswappers.ui.UserDetailsFragment;
 import com.example.krishanroy.bookswappers.ui.model.Book;
-import com.example.krishanroy.bookswappers.ui.model.Persons;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.squareup.picasso.Picasso;
 
 public class BookViewHolder extends RecyclerView.ViewHolder {
     private FragmentCommunication listener;
-    private Persons persons;
     private View view;
     private String name;
     private String email;
@@ -34,26 +32,6 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    //
-//    public void onBind(final Persons persons,
-//                       final FragmentCommunication listener) {
-//        this.persons = persons;
-//        this.listener = listener;
-//        this.email = persons.getEmail();
-//        this.name = persons.getName();
-//        this.city = persons.getAddress().getCity();
-//
-//        final TextView bookTitleTextView = itemView.findViewById(R.id.title_textView);
-//        final ImageView bookCoverImageView = itemView.findViewById(R.id.coverpage_imageView);
-//        final TextView locationTextView = itemView.findViewById(R.id.location_textView);
-//
-//        bookTitleTextView.setText(persons.getTitle());
-//        Picasso.get().load(persons.getImage()).into(bookCoverImageView);
-//        locationTextView.setText(persons.getAddress().getCity());
-//        RxView.clicks(itemView)
-//                .subscribe(click -> alertDialoguePopUp());
-//
-//    }
     @SuppressLint("CheckResult")
     public void onBind(final Book book,
                        final FragmentCommunication listener) {

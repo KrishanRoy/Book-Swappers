@@ -45,6 +45,7 @@ public class UserProfileFragment extends Fragment {
     public static final String TAG = "UserProfileFragment";
     private CurrentUserBookAdapter bookAdapter;
     List<Book> bookList = new ArrayList<>();
+    DatabaseReference ref;
 
     public static UserProfileFragment newInstance() {
         return new UserProfileFragment();
@@ -115,7 +116,7 @@ public class UserProfileFragment extends Fragment {
         this.bookAdapter = new CurrentUserBookAdapter(new LinkedList<>());
         recyclerView.setAdapter(bookAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("BookUploaded");
+        ref = FirebaseDatabase.getInstance().getReference("BookUploaded");
         Query currentUserBookQuery = ref.orderByChild("uploaderEmail").equalTo(user.getEmail());
         currentUserBookQuery.addValueEventListener(bookEventListener);
         RxView.clicks(editFab).subscribe(clicks -> listener.navigateTo(ProfileUpdateFragment.newInstance()));
@@ -149,4 +150,9 @@ public class UserProfileFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        ref.removeEventListener(bookEventListener);
+    }
 }
