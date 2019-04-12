@@ -1,4 +1,4 @@
-# Book-Swappers
+# BookSwappers
 ## App Theme:
 Book Swappers provides a long wanted platform for book lovers all around the New York City. Swapping old books and becoming a book owner have
 never been easier. Just sign up for the app and start finding donors in your neighborhood and also donate your books to
@@ -16,7 +16,6 @@ to check the distribution of the tasks.
 ## APP features:
 - Find people who are donating and receiving old books around your neighborhood based on your location
 - Contact donor or receiver and swap Face to face. 
-- Point system to guarantee book mobility.
 
 `Terms and Condition:`
 
