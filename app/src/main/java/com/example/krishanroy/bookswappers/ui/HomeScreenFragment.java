@@ -104,25 +104,26 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
         bookAdapter = new BookAdapter(bookList, listener);
         recyclerView.setAdapter(bookAdapter);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-
-        bookDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                bookList.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Book book = ds.getValue(Book.class);
-                    bookList.add(book);
-                }
-                bookAdapter.setData(bookList, listener);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(requireContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        bookDatabaseReference.addValueEventListener(bookEventListener);
     }
+
+    ValueEventListener bookEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            bookList.clear();
+            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                Book book = ds.getValue(Book.class);
+                bookList.add(book);
+            }
+            bookAdapter.setData(bookList, listener);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Toast.makeText(requireContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
 
     private void takePicturesAndSave() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -206,5 +207,11 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        bookDatabaseReference.removeEventListener(bookEventListener);
     }
 }
