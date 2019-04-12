@@ -1,5 +1,7 @@
 package com.example.krishanroy.bookswappers.ui;
 
+import android.support.v4.app.Fragment;
+
 import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 
 public interface FragmentCommunication {
@@ -9,25 +11,14 @@ public interface FragmentCommunication {
 
     void moveToSignUpLoginFragment(AppUsers appUsers);
 
-    void moveToCreateNewAccountFragment();
-
-    void moveToHomeScreenFragment();
-
-    void moveToUserDetailFragment(String name, String city, String email);
-
     void sendEmailToTheDonor(String email);
-
-    void moveToTextFragment();
 
     void dispatchTakePictureIntent();
 
     void signOutFromTheApp();
 
-    void finishHomeScreenFragment();
+    void finishFragment(Fragment fragment);
 
+    void navigateTo(Fragment fragment);
 
-
-    void finishCreateAccountFragment();
-
-    void moveToUploadNewBooksFragment();
 }

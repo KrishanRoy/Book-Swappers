@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.TextSendDisplayFragment">
+    tools:context=".ui.unusedclass.TextSendDisplayFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/message_display_recycler_view"

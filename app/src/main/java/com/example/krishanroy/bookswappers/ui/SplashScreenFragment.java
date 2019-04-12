@@ -22,6 +22,9 @@ public class SplashScreenFragment extends Fragment {
         return new SplashScreenFragment();
     }
 
+    public SplashScreenFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -52,7 +55,7 @@ public class SplashScreenFragment extends Fragment {
                     }
                 } catch (InterruptedException e) {
                 } finally {
-                    listener.moveToSignUpLoginFragment(new AppUsers());
+                    listener.navigateTo(LoginFragment.newInstance(new AppUsers()));
                 }
             }
         };

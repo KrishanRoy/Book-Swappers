@@ -6,23 +6,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
-import com.example.krishanroy.bookswappers.ui.CreateNewAccountFragment;
 import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
-import com.example.krishanroy.bookswappers.ui.HomeScreenFragment;
 import com.example.krishanroy.bookswappers.ui.LoginFragment;
 import com.example.krishanroy.bookswappers.ui.SplashScreenFragment;
-import com.example.krishanroy.bookswappers.ui.TextSendDisplayFragment;
-import com.example.krishanroy.bookswappers.ui.UploadNewBooksFragment;
-import com.example.krishanroy.bookswappers.ui.UserDetailsFragment;
 import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,10 +26,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
 
     private static final String TAG = "Main Activity";
     public static final int RC_SIGN_IN = 1;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference appUsersDatabaseReference;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
     private String editTextText;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView imageView;
@@ -45,16 +34,11 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
 
     private static final String BACK_STACK_ROOT_TAG = "root_fragment";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initiateSplashScreen();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        //appUsersDatabaseReference = firebaseDatabase.getReference("/appUsers/" + user.getUid());
 
     }
 
@@ -76,25 +60,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     }
 
     @Override
-    public void moveToCreateNewAccountFragment() {
-        CreateNewAccountFragment createNewAccountFragment = CreateNewAccountFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, createNewAccountFragment)
-                .addToBackStack(getString(R.string.create_account_add_to_backStack))
-                .commit();
-    }
-
-    @Override
-    public void moveToHomeScreenFragment() {
-        HomeScreenFragment homeScreenFragment = HomeScreenFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, homeScreenFragment)
-                .commit();
-    }
-
-    @Override
     public void openTheGitHubLink() {
         Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githublink_of_the_currentproject)));
         if (githubIntent.resolveActivity(getPackageManager()) != null) {
@@ -111,16 +76,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     }
 
     @Override
-    public void moveToUserDetailFragment(String name, String city, String email) {
-        UserDetailsFragment userDetailsFragment = UserDetailsFragment.newInstance(name, city, email);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, userDetailsFragment)
-                .addToBackStack(getString(R.string.user_detail_add_to_backstack))
-                .commit();
-    }
-
-    @Override
     public void sendEmailToTheDonor(String email) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
@@ -129,17 +84,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
-    }
-
-
-    @Override
-    public void moveToTextFragment() {
-        TextSendDisplayFragment textSendDisplayFragment = TextSendDisplayFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, textSendDisplayFragment)
-                .addToBackStack("sendtext")
-                .commit();
     }
 
     @Override
@@ -168,29 +112,18 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     }
 
     @Override
-    public void finishHomeScreenFragment() {
+    public void finishFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .remove(HomeScreenFragment.newInstance())
+                .remove(fragment)
                 .commit();
     }
 
     @Override
-    public void finishCreateAccountFragment() {
+    public void navigateTo(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .remove(CreateNewAccountFragment.newInstance())
-                .commit();
-
-    }
-
-    @Override
-    public void moveToUploadNewBooksFragment() {
-        UploadNewBooksFragment uploadNewBooksFragment = UploadNewBooksFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, uploadNewBooksFragment)
-                .addToBackStack("up")
+                .replace(R.id.fragment_container, fragment)
                 .commit();
     }
 

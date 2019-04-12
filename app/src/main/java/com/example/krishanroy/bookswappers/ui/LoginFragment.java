@@ -46,6 +46,9 @@ public class LoginFragment extends Fragment {
         return loginFragment;
     }
 
+    public LoginFragment() {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -62,7 +65,6 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             appUsers = getArguments().getParcelable(USER_INFO);
-            Log.d(TAG, "onCreate: " + appUsers.getName());
         } else {
             Log.w(TAG, "onCreate: " + "arguments expected but missing");
         }
@@ -83,21 +85,20 @@ public class LoginFragment extends Fragment {
         user = firebaseAuth.getCurrentUser();
         progressDialog = new ProgressDialog(requireContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         if (user != null) {
-            listener.finishHomeScreenFragment();
-            listener.moveToHomeScreenFragment();
+            listener.finishFragment(this);
+            listener.navigateTo(HomeScreenFragment.newInstance());
         }
 
-        RxView.clicks(signUpButton).subscribe(clicks -> listener.moveToCreateNewAccountFragment());
+        RxView.clicks(signUpButton).subscribe(clicks -> listener.navigateTo(CreateNewAccountFragment.newInstance()));
 
-        RxView.clicks(loginButton).subscribe(clicks -> authenticateUserAndLogin());
+        RxView.clicks(loginButton).subscribe(clicks -> authenticateAndLogin());
 
     }
 
-    private void authenticateUserAndLogin() {
+    private void authenticateAndLogin() {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         if (TextUtils.isEmpty(email)) {
@@ -110,9 +111,10 @@ public class LoginFragment extends Fragment {
         }
         progressDialog.show();
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            this.user = firebaseAuth.getCurrentUser();
             if (task.isSuccessful()) {
                 progressDialog.dismiss();
-                checkIfEmailVerificationIsDone();
+                emailVerificationCheckAndPermitLogin();
             } else {
                 progressDialog.dismiss();
                 Toast.makeText(requireContext(), getString(R.string.login_fragment_failed_toast_text), Toast.LENGTH_SHORT).show();
@@ -127,13 +129,10 @@ public class LoginFragment extends Fragment {
         passwordEditText = view.findViewById(R.id.login_password_edittext);
     }
 
-    private void checkIfEmailVerificationIsDone() {
-        user = firebaseAuth.getCurrentUser();
-        appUsersDatabaseReference = firebaseDatabase.getReference("/appUsers/" + user.getUid());
+    private void emailVerificationCheckAndPermitLogin() {
         if (user != null) {
             if (user.isEmailVerified()) {
-                appUsersDatabaseReference.setValue(appUsers);
-                listener.moveToHomeScreenFragment();
+                listener.navigateTo(HomeScreenFragment.newInstance());
             } else {
                 Toast.makeText(requireContext(), "Verify your email", Toast.LENGTH_SHORT).show();
                 firebaseAuth.signOut();

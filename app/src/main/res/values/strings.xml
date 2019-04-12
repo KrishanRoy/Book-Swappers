@@ -25,7 +25,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="send_text_fragment_edittext_text">Enter your message</string>
-    <string name="detail_frag_send_a_text_button">send a text</string>
+    <string name="detail_frag_send_a_text_button">Back To HomeScreen</string>
     <string name="send_button_text_fragment">Send</string>
     <string name="sign_out">Sign out</string>
     <string name="login_fragment_failed_toast_text">Login Failed, Try Again!</string>
@@ -39,4 +39,9 @@
     <string name="up_new_books_frag_author_name_et">Author name</string>
     <string name="up_new_books_frag_upload_btn">upload</string>
     <string name="up_new_books_frag_done_button">Done</string>
+    <string name="user_profile_menu">Profile</string>
+    <string name="your_books_are_below">Your Books Are Below</string>
+    <string name="update_your_profile">Update Your Profile</string>
+    <string name="change">Change</string>
+    <string name="user_profile_button">Home screen</string>
 </resources>

@@ -17,21 +17,25 @@ import com.example.krishanroy.bookswappers.R;
 import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jakewharton.rxbinding3.view.RxView;
 
 public class CreateNewAccountFragment extends Fragment {
     private EditText enterName, enterCity, enterState, enterEmail, enterPassword;
-    private Button registerNewUser;
+    private Button registerNewUserButton;
     FirebaseAuth firebaseAuth;
     FragmentCommunication listener;
     private FirebaseDatabase firebaseDatabase;
-    //private DatabaseReference appUsersDatabaseReference;
+    private DatabaseReference appUsersDatabaseReference;
     private String userName, userCity, userState, userEmail, userPassword;
 
 
     public static CreateNewAccountFragment newInstance() {
         return new CreateNewAccountFragment();
+    }
+
+    public CreateNewAccountFragment() {
     }
 
     @Override
@@ -61,13 +65,10 @@ public class CreateNewAccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findViewByIds(view);
-        registerNewUser = view.findViewById(R.id.register_user_button);
+        registerNewUserButton = view.findViewById(R.id.register_user_button);
         firebaseAuth = FirebaseAuth.getInstance();
-        //firebaseDatabase = FirebaseDatabase.getInstance();
-        RxView.clicks(registerNewUser)
-                .subscribe(click -> {
-                    registerUser();
-                });
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        RxView.clicks(registerNewUserButton).subscribe(click -> registerUser());
     }
 
     private void registerUser() {
@@ -98,25 +99,23 @@ public class CreateNewAccountFragment extends Fragment {
 
     private void sendVerificationEmailToTheNewUser() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        //appUsersDatabaseReference = firebaseDatabase.getReference(("/appUsers/" + user.getUid()));
+        appUsersDatabaseReference = firebaseDatabase.getReference(("/appUsers/" + user.getUid()));
         user.sendEmailVerification().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(requireContext(), "Email Verification is Sent! Check Your Email", Toast.LENGTH_SHORT).show();
                 firebaseAuth.signOut();
-                listener.finishCreateAccountFragment();
-                listener.moveToSignUpLoginFragment(
-                        new AppUsers(
-                                enterName.getText().toString(),
-                                enterCity.getText().toString(),
-                                enterState.getText().toString(),
-                                enterEmail.getText().toString())
-                );
+                listener.finishFragment(this);
+                appUsersDatabaseReference.setValue(new AppUsers(
+                        enterName.getText().toString(),
+                        enterCity.getText().toString(),
+                        enterState.getText().toString(),
+                        enterEmail.getText().toString()));
+                listener.navigateTo(HomeScreenFragment.newInstance());
             } else {
                 Toast.makeText(requireContext(), "verification will be sent soon! check soon!", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
     private void findViewByIds(@NonNull View view) {
         enterName = view.findViewById(R.id.create_account_name_edittext);

@@ -62,6 +62,8 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
         return new HomeScreenFragment();
     }
 
+    public HomeScreenFragment() {
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -95,7 +97,7 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
         searchView = view.findViewById(R.id.home_screen_searchview);
         searchView.setOnQueryTextListener(this);
         fabCamera = view.findViewById(R.id.add_books_with_camera_fab);
-        RxView.clicks(fabCamera).subscribe(clicks -> listener.moveToUploadNewBooksFragment());
+        RxView.clicks(fabCamera).subscribe(clicks -> listener.navigateTo(UploadNewBooksFragment.newInstance()));
         bookDatabaseReference = FirebaseDatabase.getInstance().getReference(UploadNewBooksFragment.BOOK_REFERENCE);
 
         bookList = new LinkedList<>();
@@ -167,7 +169,10 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     public boolean onQueryTextChange(String s) {
         List<Book> newBooksList = new LinkedList<>();
         for (Book b : bookList) {
-            if (b.getUploaderCity().toLowerCase().startsWith(s.toLowerCase())) {
+            if (b.getUploaderCity().toLowerCase().startsWith(s.toLowerCase()) ||
+                    b.getAuthor().toLowerCase().startsWith(s.toLowerCase()) ||
+                    b.getTitle().toLowerCase().startsWith(s.toLowerCase()) ||
+                    b.getUploaderName().toLowerCase().startsWith(s.toLowerCase())) {
                 newBooksList.add(b);
             }
         }
@@ -188,10 +193,17 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
         switch (item.getItemId()) {
             case R.id.menu_github_link:
                 listener.openTheGitHubLink();
+                break;
             case R.id.menu_linkedin_link:
                 listener.openTheLinkedInPage();
+                break;
+            case R.id.user_profile_menu:
+                listener.navigateTo(UserProfileFragment.newInstance());
+                break;
             case R.id.menu_sign_out:
                 listener.signOutFromTheApp();
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
