@@ -40,4 +40,7 @@
     <string name="up_new_books_frag_upload_btn">upload</string>
     <string name="up_new_books_frag_done_button">Done</string>
     <string name="user_profile_menu">Profile</string>
+    <string name="your_books_are_below">Your Books Are Below</string>
+    <string name="update_your_profile">Update Your Profile</string>
+    <string name="change">Change</string>
 </resources>

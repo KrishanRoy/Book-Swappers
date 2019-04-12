@@ -14,12 +14,14 @@ import com.example.krishanroy.bookswappers.ui.CreateNewAccountFragment;
 import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
 import com.example.krishanroy.bookswappers.ui.HomeScreenFragment;
 import com.example.krishanroy.bookswappers.ui.LoginFragment;
+import com.example.krishanroy.bookswappers.ui.ProfileUpdateFragment;
 import com.example.krishanroy.bookswappers.ui.SplashScreenFragment;
 import com.example.krishanroy.bookswappers.ui.TextSendDisplayFragment;
 import com.example.krishanroy.bookswappers.ui.UploadNewBooksFragment;
 import com.example.krishanroy.bookswappers.ui.UserDetailsFragment;
 import com.example.krishanroy.bookswappers.ui.UserProfileFragment;
 import com.example.krishanroy.bookswappers.ui.model.AppUsers;
+import com.example.krishanroy.bookswappers.ui.model.Book;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -45,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     private String currentPhotoPath;
 
     private static final String BACK_STACK_ROOT_TAG = "root_fragment";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,6 +181,15 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(LoginFragment.newInstance(new AppUsers()))
+                .commit();
+    }
+
+    @Override
+    public void moveToProfileUpdateFragment() {
+        ProfileUpdateFragment profileUpdateFragment = ProfileUpdateFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, profileUpdateFragment)
                 .commit();
     }
 

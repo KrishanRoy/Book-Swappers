@@ -159,8 +159,9 @@ public class UploadNewBooksFragment extends Fragment {
                                     uploaderCity,
                                     uploaderName,
                                     uploaderEmail);
-                            String uploadId = databaseReference.push().getKey();
-                            databaseReference.child(uploadId).setValue(newBook);
+//                            String uploadId = databaseReference.push().getKey();
+//                            databaseReference.child(uploadId).setValue(newBook);
+                            databaseReference.push().setValue(newBook);
 
                         });
                     }).addOnFailureListener(e -> Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show())
