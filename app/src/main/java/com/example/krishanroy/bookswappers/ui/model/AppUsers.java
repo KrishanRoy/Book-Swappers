@@ -13,7 +13,7 @@ public class AppUsers implements Parcelable {
     private String userEmail;
     private Book book;
 
-    public AppUsers( String name, String city, String state, String userEmail) {
+    public AppUsers(String name, String city, String state, String userEmail) {
         this.name = name;
         this.city = city;
         this.state = state;

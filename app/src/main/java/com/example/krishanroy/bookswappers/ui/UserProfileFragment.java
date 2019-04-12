@@ -7,20 +7,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.krishanroy.bookswappers.R;
 import com.example.krishanroy.bookswappers.ui.controller.CurrentUserBookAdapter;
 import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 import com.example.krishanroy.bookswappers.ui.model.Book;
-import com.example.krishanroy.bookswappers.ui.view.CurrentUserBookViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +39,7 @@ public class UserProfileFragment extends Fragment {
     private FragmentCommunication listener;
     private TextView userNameTextview, userCityTextview, userStateTextview, userEmailTextview;
     private FloatingActionButton editFab;
+    private Button backToHomeScreenButton;
     private DatabaseReference userProfileDatabaseRef;
     private FirebaseUser user;
     public static final String TAG = "UserProfileFragment";
@@ -49,10 +50,13 @@ public class UserProfileFragment extends Fragment {
         return new UserProfileFragment();
     }
 
+    public UserProfileFragment() {
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         if (context instanceof FragmentCommunication) {
             listener = (FragmentCommunication) context;
         } else {
@@ -114,7 +118,8 @@ public class UserProfileFragment extends Fragment {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("BookUploaded");
         Query currentUserBookQuery = ref.orderByChild("uploaderEmail").equalTo(user.getEmail());
         currentUserBookQuery.addValueEventListener(bookEventListener);
-        RxView.clicks(editFab).subscribe(clicks -> listener.moveToProfileUpdateFragment());
+        RxView.clicks(editFab).subscribe(clicks -> listener.navigateTo(ProfileUpdateFragment.newInstance()));
+        RxView.clicks(backToHomeScreenButton).subscribe(clicks -> listener.navigateTo(HomeScreenFragment.newInstance()));
     }
 
     ValueEventListener bookEventListener = new ValueEventListener() {
@@ -140,6 +145,8 @@ public class UserProfileFragment extends Fragment {
         userStateTextview = view.findViewById(R.id.user_profile_state);
         userEmailTextview = view.findViewById(R.id.user_profile_email);
         editFab = view.findViewById(R.id.edit_profile_fab);
+        backToHomeScreenButton = view.findViewById(R.id.user_profile_back_to_home_button);
+
     }
 
 }

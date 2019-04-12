@@ -1,4 +1,4 @@
-package com.example.krishanroy.bookswappers.ui;
+package com.example.krishanroy.bookswappers.ui.unusedclass;
 
 
 import android.annotation.SuppressLint;
@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.krishanroy.bookswappers.R;
+import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
 import com.example.krishanroy.bookswappers.ui.controller.MessageAdapter;
 import com.example.krishanroy.bookswappers.ui.model.TextMessage;
 import com.google.firebase.database.ChildEventListener;

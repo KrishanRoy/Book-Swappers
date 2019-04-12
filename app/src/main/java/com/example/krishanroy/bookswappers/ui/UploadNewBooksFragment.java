@@ -100,10 +100,8 @@ public class UploadNewBooksFragment extends Fragment {
         RxView.clicks(openGalleryButton)
                 .subscribe(clicks -> openGalleryAndPickImage());
         RxView.clicks(uploadImageToFireBaseButton)
-                .subscribe(clicks -> {
-                    uploadImageFileToFireBase();
-                });
-        RxView.clicks(doneButton).subscribe(clicks -> listener.moveToHomeScreenFragment());
+                .subscribe(clicks -> uploadImageFileToFireBase());
+        RxView.clicks(doneButton).subscribe(clicks -> listener.navigateTo(HomeScreenFragment.newInstance()));
 
     }
 
@@ -149,7 +147,14 @@ public class UploadNewBooksFragment extends Fragment {
             storageTask = imageFileReference.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> {
                         Handler handler = new Handler();
-                        handler.postDelayed(() -> progressBar.setProgress(0), 5000);
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setProgress(0);
+                                bookTitleEdText.setText("");
+                                authorNameEdText.setText("");
+                            }
+                        }, 3000);
                         Toast.makeText(requireContext(), "Upload Successful", Toast.LENGTH_SHORT).show();
                         imageFileReference.getDownloadUrl().addOnSuccessListener(uri -> {
                             Book newBook = new Book(
@@ -159,8 +164,6 @@ public class UploadNewBooksFragment extends Fragment {
                                     uploaderCity,
                                     uploaderName,
                                     uploaderEmail);
-//                            String uploadId = databaseReference.push().getKey();
-//                            databaseReference.child(uploadId).setValue(newBook);
                             databaseReference.push().setValue(newBook);
 
                         });

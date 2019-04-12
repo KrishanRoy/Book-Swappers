@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.krishanroy.bookswappers.R;
 import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
+import com.example.krishanroy.bookswappers.ui.UserDetailsFragment;
 import com.example.krishanroy.bookswappers.ui.model.Book;
 import com.example.krishanroy.bookswappers.ui.model.Persons;
 import com.jakewharton.rxbinding3.view.RxView;
@@ -97,7 +98,7 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         RxView.clicks(alertDonorNameTextView)
                 .subscribe(fromAlertDialogue -> {
                     dialog.dismiss();
-                    listener.moveToUserDetailFragment(name, city, email);
+                    listener.navigateTo(UserDetailsFragment.newInstance(name, city, email));
 
                 });
     }

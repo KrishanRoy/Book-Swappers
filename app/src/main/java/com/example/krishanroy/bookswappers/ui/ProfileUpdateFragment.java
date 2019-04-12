@@ -5,8 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,21 +37,19 @@ public class ProfileUpdateFragment extends Fragment {
         return new ProfileUpdateFragment();
     }
 
+    public ProfileUpdateFragment() {
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         if (context instanceof FragmentCommunication) {
             listener = (FragmentCommunication) context;
         } else {
             throw new RuntimeException(context.toString() +
                     "must implement FragmentCommunication");
         }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -74,6 +72,7 @@ public class ProfileUpdateFragment extends Fragment {
     }
 
     private void updateProfile() {
+
         String name, city, state, email;
         name = updateNameEdText.getText().toString();
         city = updateCityEdText.getText().toString();
@@ -81,6 +80,8 @@ public class ProfileUpdateFragment extends Fragment {
         email = updateEmailEdText.getText().toString();
         AppUsers appUsers = new AppUsers(name, city, state, email);
         databaseReference.setValue(appUsers);
+        listener.finishFragment(this);
+        listener.navigateTo(UserProfileFragment.newInstance());
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {

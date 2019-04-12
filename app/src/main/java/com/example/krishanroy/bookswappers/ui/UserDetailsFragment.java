@@ -75,14 +75,14 @@ public class UserDetailsFragment extends Fragment {
         TextView nameTextView = view.findViewById(R.id.detail_fragment_name_textView);
         TextView cityTextView = view.findViewById(R.id.detail_fragment_city_textView);
         Button emailButton = view.findViewById(R.id.detail_fragment_email_button);
-        Button sendTextButton = view.findViewById(R.id.detail_fragment_send_text_button);
+        Button backToHomeScreenButton = view.findViewById(R.id.detail_fragment_send_text_button);
 
         nameTextView.setText(donorName);
         Log.d(TAG, "onViewCreated: " + donorName);
         cityTextView.setText(donorCity);
         RxView.clicks(emailButton)
                 .subscribe(click -> listener.sendEmailToTheDonor(donorEmail));
-        RxView.clicks(sendTextButton)
-                .subscribe(click -> listener.moveToTextFragment());
+        RxView.clicks(backToHomeScreenButton)
+                .subscribe(click -> listener.navigateTo(HomeScreenFragment.newInstance()));
     }
 }

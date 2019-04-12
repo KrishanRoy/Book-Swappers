@@ -9,7 +9,7 @@ public class Book {
     private String uploaderName;
     private String uploaderEmail;
 
-    public Book(String title, String author, String bookImage,String uploaderCity, String uploaderName, String uploaderEmail) {
+    public Book(String title, String author, String bookImage, String uploaderCity, String uploaderName, String uploaderEmail) {
         this.title = title;
         this.author = author;
         this.bookImage = bookImage;
