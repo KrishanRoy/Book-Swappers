@@ -154,7 +154,7 @@ public class UploadNewBooksFragment extends Fragment {
                             progressBar.setProgress(0);
                             bookTitleEdText.setText("");
                             authorNameEdText.setText("");
-                        }, 3000);
+                        }, new GenerateRandomNumber().randomNumber());
                         Toast.makeText(requireContext(), "Upload Successful", Toast.LENGTH_SHORT).show();
                         imageFileReference.getDownloadUrl().addOnSuccessListener(uri -> {
                             Book newBook = new Book(
