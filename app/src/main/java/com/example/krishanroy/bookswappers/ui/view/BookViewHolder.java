@@ -76,7 +76,7 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         RxView.clicks(alertDonorNameTextView)
                 .subscribe(fromAlertDialogue -> {
                     dialog.dismiss();
-                    listener.navigateTo(UserDetailsFragment.newInstance(name, city, email));
+                    listener.moveToUserDetailFragment(name, city, email);
 
                 });
     }

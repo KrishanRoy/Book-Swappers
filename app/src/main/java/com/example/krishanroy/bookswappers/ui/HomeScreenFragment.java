@@ -97,7 +97,7 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
         searchView = view.findViewById(R.id.home_screen_searchview);
         searchView.setOnQueryTextListener(this);
         fabCamera = view.findViewById(R.id.add_books_with_camera_fab);
-        RxView.clicks(fabCamera).subscribe(clicks -> listener.navigateTo(UploadNewBooksFragment.newInstance()));
+        RxView.clicks(fabCamera).subscribe(clicks -> listener.moveToUploadNewBookFragment());
         bookDatabaseReference = FirebaseDatabase.getInstance().getReference(UploadNewBooksFragment.BOOK_REFERENCE);
 
         bookList = new LinkedList<>();
@@ -199,7 +199,8 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
                 listener.openTheLinkedInPage();
                 break;
             case R.id.user_profile_menu:
-                listener.navigateTo(UserProfileFragment.newInstance());
+                listener.moveToUserProfileFragment();
+                listener.finishFragment(this);
                 break;
             case R.id.menu_sign_out:
                 listener.signOutFromTheApp();

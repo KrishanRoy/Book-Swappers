@@ -81,7 +81,7 @@ public class ProfileUpdateFragment extends Fragment {
         AppUsers appUsers = new AppUsers(name, city, state, email);
         databaseReference.setValue(appUsers);
         listener.finishFragment(this);
-        listener.navigateTo(UserProfileFragment.newInstance());
+        listener.moveToUserProfileFragment();
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
