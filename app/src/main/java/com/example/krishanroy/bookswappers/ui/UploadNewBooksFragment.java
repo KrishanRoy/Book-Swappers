@@ -101,7 +101,10 @@ public class UploadNewBooksFragment extends Fragment {
                 .subscribe(clicks -> openGalleryAndPickImage());
         RxView.clicks(uploadImageToFireBaseButton)
                 .subscribe(clicks -> uploadImageFileToFireBase());
-        RxView.clicks(doneButton).subscribe(clicks -> listener.navigateTo(HomeScreenFragment.newInstance()));
+        RxView.clicks(doneButton).subscribe(clicks -> {
+            listener.finishFragment(this);
+            listener.moveToHomeScreenFragment();
+        });
 
     }
 
@@ -147,13 +150,10 @@ public class UploadNewBooksFragment extends Fragment {
             storageTask = imageFileReference.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> {
                         Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressBar.setProgress(0);
-                                bookTitleEdText.setText("");
-                                authorNameEdText.setText("");
-                            }
+                        handler.postDelayed(() -> {
+                            progressBar.setProgress(0);
+                            bookTitleEdText.setText("");
+                            authorNameEdText.setText("");
                         }, 3000);
                         Toast.makeText(requireContext(), "Upload Successful", Toast.LENGTH_SHORT).show();
                         imageFileReference.getDownloadUrl().addOnSuccessListener(uri -> {

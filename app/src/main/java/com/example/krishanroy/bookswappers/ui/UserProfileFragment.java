@@ -119,8 +119,8 @@ public class UserProfileFragment extends Fragment {
         ref = FirebaseDatabase.getInstance().getReference("BookUploaded");
         Query currentUserBookQuery = ref.orderByChild("uploaderEmail").equalTo(user.getEmail());
         currentUserBookQuery.addValueEventListener(bookEventListener);
-        RxView.clicks(editFab).subscribe(clicks -> listener.navigateTo(ProfileUpdateFragment.newInstance()));
-        RxView.clicks(backToHomeScreenButton).subscribe(clicks -> listener.navigateTo(HomeScreenFragment.newInstance()));
+        RxView.clicks(editFab).subscribe(clicks -> listener.moveToProfileUpdateFragment());
+        RxView.clicks(backToHomeScreenButton).subscribe(clicks -> listener.moveToHomeScreenFragment());
     }
 
     ValueEventListener bookEventListener = new ValueEventListener() {

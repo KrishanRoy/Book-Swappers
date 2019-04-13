@@ -83,6 +83,9 @@ public class UserDetailsFragment extends Fragment {
         RxView.clicks(emailButton)
                 .subscribe(click -> listener.sendEmailToTheDonor(donorEmail));
         RxView.clicks(backToHomeScreenButton)
-                .subscribe(click -> listener.navigateTo(HomeScreenFragment.newInstance()));
+                .subscribe(click -> {
+                    listener.finishFragment(this);
+                    listener.moveToHomeScreenFragment();
+                });
     }
 }

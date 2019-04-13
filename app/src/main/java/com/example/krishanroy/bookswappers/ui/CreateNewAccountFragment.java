@@ -110,7 +110,7 @@ public class CreateNewAccountFragment extends Fragment {
                         enterCity.getText().toString(),
                         enterState.getText().toString(),
                         enterEmail.getText().toString()));
-                listener.navigateTo(HomeScreenFragment.newInstance());
+                listener.moveToHomeScreenFragment();
             } else {
                 Toast.makeText(requireContext(), "verification will be sent soon! check soon!", Toast.LENGTH_SHORT).show();
             }

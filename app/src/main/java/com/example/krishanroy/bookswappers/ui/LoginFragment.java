@@ -75,10 +75,10 @@ public class LoginFragment extends Fragment {
 
         if (user != null) {
             listener.finishFragment(this);
-            listener.navigateTo(HomeScreenFragment.newInstance());
+            listener.moveToHomeScreenFragment();
         }
 
-        RxView.clicks(signUpButton).subscribe(clicks -> listener.navigateTo(CreateNewAccountFragment.newInstance()));
+        RxView.clicks(signUpButton).subscribe(clicks -> listener.moveToCreateNewAccountFragment());
         RxView.clicks(loginButton).subscribe(clicks -> authenticateAndLogin());
 
     }
@@ -117,7 +117,8 @@ public class LoginFragment extends Fragment {
     private void emailVerificationCheckAndPermitLogin() {
         if (user != null) {
             if (user.isEmailVerified()) {
-                listener.navigateTo(HomeScreenFragment.newInstance());
+                listener.finishFragment(this);
+                listener.moveToHomeScreenFragment();
             } else {
                 Toast.makeText(requireContext(), "Verify your email", Toast.LENGTH_SHORT).show();
                 firebaseAuth.signOut();
