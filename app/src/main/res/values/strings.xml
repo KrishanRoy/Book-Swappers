@@ -44,4 +44,10 @@
     <string name="update_your_profile">Update Your Profile</string>
     <string name="change">Change</string>
     <string name="user_profile_button">Home screen</string>
+
+    <string name="bottom_bar_showcase">Showcase</string>
+    <string name="bottom_bar_preview">Preview</string>
+    <string name="bottom_bar_lottiefiles">Lottiefiles</string>
+    <string name="bottom_bar_learn">Learn</string>
+
 </resources>

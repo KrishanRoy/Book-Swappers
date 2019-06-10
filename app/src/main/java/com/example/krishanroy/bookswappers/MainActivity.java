@@ -9,7 +9,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
 
 import com.example.krishanroy.bookswappers.ui.CreateNewAccountFragment;
 import com.example.krishanroy.bookswappers.ui.FragmentCommunication;
@@ -20,7 +19,6 @@ import com.example.krishanroy.bookswappers.ui.SplashScreenFragment;
 import com.example.krishanroy.bookswappers.ui.UploadNewBooksFragment;
 import com.example.krishanroy.bookswappers.ui.UserDetailsFragment;
 import com.example.krishanroy.bookswappers.ui.UserProfileFragment;
-import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
@@ -38,12 +36,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     private static final String UPLOAD_NEW_BOOK_FRAGMENT_KEY = "upload new book fragment";
     private static final String CREATE_NEW_AC_FRAGMENT_KEY = "create new accoutn fragment";
     private static final String HOME_SCREEN_FRAGMENT_KEY = "home screen fragment";
-    private String editTextText;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private ImageView imageView;
     private static final int REQUEST_TAKE_PHOTO = 1;
     private String currentPhotoPath;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         initiateSplashScreen();
 
     }
+
 
     private void initiateSplashScreen() {
         SplashScreenFragment splashScreenFragment = SplashScreenFragment.newInstance();
@@ -68,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
+
     }
 
     @Override
@@ -75,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         HomeScreenFragment fragment = HomeScreenFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.nav_enter, R.anim.nav_exit, R.anim.pop_enter, R.anim.pop_exit)
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(HOME_SCREEN_FRAGMENT_KEY)
                 .commit();
@@ -84,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     public void moveToCreateNewAccountFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.nav_enter, R.anim.nav_exit, R.anim.pop_enter, R.anim.pop_exit)
                 .replace(R.id.fragment_container, CreateNewAccountFragment.newInstance())
                 .addToBackStack(CREATE_NEW_AC_FRAGMENT_KEY)
                 .commit();
@@ -93,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     public void moveToUploadNewBookFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.nav_enter, R.anim.nav_exit, R.anim.pop_enter, R.anim.pop_exit)
                 .replace(R.id.fragment_container, UploadNewBooksFragment.newInstance())
                 .addToBackStack(UPLOAD_NEW_BOOK_FRAGMENT_KEY)
                 .commit();
@@ -102,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     public void moveToUserDetailFragment(String name, String city, String email) {
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.nav_enter, R.anim.nav_exit, R.anim.pop_enter, R.anim.pop_exit)
                 .replace(R.id.fragment_container, UserDetailsFragment.newInstance(name, city, email))
                 .addToBackStack(USER_DETAIL_FRAGMENT_KEY)
                 .commit();
@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     public void moveToUserProfileFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.nav_enter, R.anim.nav_exit, R.anim.pop_enter, R.anim.pop_exit)
                 .replace(R.id.fragment_container, UserProfileFragment.newInstance())
                 .addToBackStack(USER_PROFILE_FRAGMENT_KEY)
                 .commit();
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     public void moveToProfileUpdateFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.nav_enter, R.anim.nav_exit, R.anim.pop_enter, R.anim.pop_exit)
                 .replace(R.id.fragment_container, ProfileUpdateFragment.newInstance())
                 .addToBackStack(PROFILE_UPDATE_FRAGMENT_KEY)
                 .commit();

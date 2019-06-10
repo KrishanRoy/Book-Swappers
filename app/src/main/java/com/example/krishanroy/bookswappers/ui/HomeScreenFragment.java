@@ -200,7 +200,7 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
                 break;
             case R.id.user_profile_menu:
                 listener.moveToUserProfileFragment();
-                listener.finishFragment(this);
+                //listener.finishFragment(this);
                 break;
             case R.id.menu_sign_out:
                 listener.signOutFromTheApp();

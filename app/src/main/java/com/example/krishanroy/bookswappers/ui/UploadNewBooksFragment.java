@@ -150,10 +150,13 @@ public class UploadNewBooksFragment extends Fragment {
             storageTask = imageFileReference.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> {
                         Handler handler = new Handler();
-                        handler.postDelayed(() -> {
-                            progressBar.setProgress(0);
-                            bookTitleEdText.setText("");
-                            authorNameEdText.setText("");
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setProgress(0);
+                                bookTitleEdText.setText("");
+                                authorNameEdText.setText("");
+                            }
                         }, new GenerateRandomNumber().randomNumber());
                         Toast.makeText(requireContext(), "Upload Successful", Toast.LENGTH_SHORT).show();
                         imageFileReference.getDownloadUrl().addOnSuccessListener(uri -> {

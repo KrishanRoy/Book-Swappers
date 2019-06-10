@@ -17,6 +17,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/login_email_edittext"
         android:layout_width="match_parent"
@@ -24,55 +25,69 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="100dp"
+        android:background="@drawable/edittext_background"
         android:hint="@string/enter_your_email__to_create_account_edittext"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/edittext_background"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/login_password_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edittext_background"
         android:hint="@string/login_password_hint"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/edittext_background"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/log_in_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="210dp"
+        android:background="@drawable/button_background"
         android:text="@string/log_in_button_text"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/button_background"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/sign_up_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="320dp"
+        android:background="@drawable/button_background"
         android:text="@string/sign_up_button_text"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_animation_view"
+        android:layout_width="84dp"
+        android:layout_height="81dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/button_background"/>
+        app:layout_constraintVertical_bias="0.056"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="loading_animation.json"
+        app:lottie_loop="true" />
 
 
 </android.support.constraint.ConstraintLayout>
