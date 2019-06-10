@@ -1,5 +1,6 @@
 package com.example.krishanroy.bookswappers.ui;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.krishanroy.bookswappers.R;
-import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +35,7 @@ public class LoginFragment extends Fragment {
     FirebaseUser user;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference appUsersDatabaseReference;
+    private LottieAnimationView loadingAnimationView;
 
 
     public static LoginFragment newInstance() {
@@ -79,7 +80,9 @@ public class LoginFragment extends Fragment {
         }
 
         RxView.clicks(signUpButton).subscribe(clicks -> listener.moveToCreateNewAccountFragment());
-        RxView.clicks(loginButton).subscribe(clicks -> authenticateAndLogin());
+        RxView.clicks(loginButton).subscribe(clicks -> {
+            authenticateAndLogin();
+        });
 
     }
 
@@ -112,6 +115,7 @@ public class LoginFragment extends Fragment {
         loginButton = view.findViewById(R.id.log_in_button);
         emailEditText = view.findViewById(R.id.login_email_edittext);
         passwordEditText = view.findViewById(R.id.login_password_edittext);
+        loadingAnimationView = view.findViewById(R.id.loading_animation_view);
     }
 
     private void emailVerificationCheckAndPermitLogin() {
@@ -125,4 +129,6 @@ public class LoginFragment extends Fragment {
             }
         }
     }
+
+
 }
