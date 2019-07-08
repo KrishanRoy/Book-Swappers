@@ -23,9 +23,9 @@ public interface FragmentCommunication {
 
     void dispatchTakePictureIntent();
 
-    void openTheGitHubLink();
-
-    void openTheLinkedInPage();
+//    void openTheGitHubLink();
+//
+//    void openTheLinkedInPage();
 
     void sendEmailToTheDonor(String email);
 

@@ -192,12 +192,12 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_github_link:
+            /*case R.id.menu_github_link:
                 listener.openTheGitHubLink();
                 break;
             case R.id.menu_linkedin_link:
                 listener.openTheLinkedInPage();
-                break;
+                break;*/
             case R.id.user_profile_menu:
                 listener.moveToUserProfileFragment();
                 //listener.finishFragment(this);

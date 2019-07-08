@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     }
 
 
-    @Override
+    /*@Override
     public void openTheGitHubLink() {
         Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githublink_of_the_currentproject)));
         if (githubIntent.resolveActivity(getPackageManager()) != null) {
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         if (linkedInIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(linkedInIntent);
         }
-    }
+    }*/
 
     private File createImageFile() throws IOException {
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
