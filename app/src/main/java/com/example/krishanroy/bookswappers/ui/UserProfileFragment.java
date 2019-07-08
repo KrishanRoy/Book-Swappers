@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.krishanroy.bookswappers.R;
 import com.example.krishanroy.bookswappers.ui.controller.CurrentUserBookAdapter;
+import com.example.krishanroy.bookswappers.ui.controller.ProfileAdapter;
 import com.example.krishanroy.bookswappers.ui.model.AppUsers;
 import com.example.krishanroy.bookswappers.ui.model.Book;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +50,8 @@ public class UserProfileFragment extends Fragment {
     private CurrentUserBookAdapter bookAdapter;
     List<Book> bookList = new ArrayList<>();
     DatabaseReference ref;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     public static UserProfileFragment newInstance() {
         return new UserProfileFragment();
@@ -58,7 +63,7 @@ public class UserProfileFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         if (context instanceof FragmentCommunication) {
             listener = (FragmentCommunication) context;
         } else {
@@ -113,15 +118,46 @@ public class UserProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findViewByIds(view);
-        RecyclerView recyclerView = view.findViewById(R.id.user_profile_book_recycler_view);
+//        RecyclerView recyclerView = view.findViewById(R.id.user_profile_book_recycler_view);
         this.bookAdapter = new CurrentUserBookAdapter(new LinkedList<>());
-        recyclerView.setAdapter(bookAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+//        recyclerView.setAdapter(bookAdapter);
+//        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         ref = FirebaseDatabase.getInstance().getReference("BookUploaded");
         Query currentUserBookQuery = ref.orderByChild("uploaderEmail").equalTo(user.getEmail());
         currentUserBookQuery.addValueEventListener(bookEventListener);
         RxView.clicks(editFab).subscribe(clicks -> listener.moveToProfileUpdateFragment());
-        RxView.clicks(backToHomeScreenButton).subscribe(clicks -> listener.moveToHomeScreenFragment());
+        //RxView.clicks(backToHomeScreenButton).subscribe(clicks -> listener.moveToHomeScreenFragment());
+        tabLayout.addTab(tabLayout.newTab().setText("user profile"));
+        tabLayout.addTab(tabLayout.newTab().setText("your books"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        final ProfileAdapter profileAdapter = new ProfileAdapter(requireContext(), getChildFragmentManager(), 2);
+        viewPager.setAdapter(profileAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tabLayout.getSelectedTabPosition() == 0) {
+                    Toast.makeText(requireContext(), "Tab" + tabLayout.getSelectedTabPosition(), Toast.LENGTH_SHORT).show();
+                } else {
+//                    RecyclerView recyclerView = view.findViewById(R.id.user_profile_book_recycler_view);
+//                    //bookAdapter = new CurrentUserBookAdapter(new LinkedList<>());
+//                    recyclerView.setAdapter(bookAdapter);
+//                    recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+//                   }
+                    listener.moveToHomeScreenFragment();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     ValueEventListener bookEventListener = new ValueEventListener() {
@@ -147,7 +183,9 @@ public class UserProfileFragment extends Fragment {
         userStateTextview = view.findViewById(R.id.user_profile_state);
         userEmailTextview = view.findViewById(R.id.user_profile_email);
         editFab = view.findViewById(R.id.edit_profile_fab);
-        backToHomeScreenButton = view.findViewById(R.id.user_profile_back_to_home_button);
+        //backToHomeScreenButton = view.findViewById(R.id.user_profile_back_to_home_button);
+        tabLayout = view.findViewById(R.id.tab_layout);
+        viewPager = view.findViewById(R.id.user_profile_viewpager);
 
     }
 
