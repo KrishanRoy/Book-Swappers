@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     private static final String HOME_SCREEN_FRAGMENT_KEY = "home screen fragment";
     private static final int REQUEST_TAKE_PHOTO = 1;
     private String currentPhotoPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,23 +161,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
             }
         }
     }
-
-
-    /*@Override
-    public void openTheGitHubLink() {
-        Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githublink_of_the_currentproject)));
-        if (githubIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(githubIntent);
-        }
-    }
-
-    @Override
-    public void openTheLinkedInPage() {
-        Intent linkedInIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.linkedIn_link)));
-        if (linkedInIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(linkedInIntent);
-        }
-    }*/
 
     private File createImageFile() throws IOException {
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
