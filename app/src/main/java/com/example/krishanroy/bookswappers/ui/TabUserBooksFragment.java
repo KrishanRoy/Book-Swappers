@@ -10,19 +10,15 @@ import android.view.ViewGroup;
 
 import com.example.krishanroy.bookswappers.R;
 
-public class TabProfileFragment extends Fragment {
-    public static TabProfileFragment newInstance() {
-        return new TabProfileFragment();
-    }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+public class TabUserBooksFragment extends Fragment {
+    public static TabUserBooksFragment newInstance(){
+        return new TabUserBooksFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_layout_user_profile_fragment, container, false);
+        return inflater.inflate(R.layout.tab_layout_user_books_fragment, container, false);
     }
 }

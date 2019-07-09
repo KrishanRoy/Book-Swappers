@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.krishanroy.bookswappers.ui.TabUserProfileFragment;
+import com.example.krishanroy.bookswappers.ui.TabUserBooksFragment;
+
 public class ProfileAdapter extends FragmentPagerAdapter {
     private Context context;
     private int totalTabs;
@@ -17,15 +20,19 @@ public class ProfileAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
-
+                return new TabUserProfileFragment();
+            case 1:
+                return new TabUserBooksFragment();
+            default:
+                return null;
         }
-        return null;
+
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return totalTabs;
     }
 }

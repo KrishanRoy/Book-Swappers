@@ -144,7 +144,7 @@ public class UserProfileFragment extends Fragment {
 //                    recyclerView.setAdapter(bookAdapter);
 //                    recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
 //                   }
-                    listener.moveToHomeScreenFragment();
+                    //listener.moveToHomeScreenFragment();
                 }
             }
 
