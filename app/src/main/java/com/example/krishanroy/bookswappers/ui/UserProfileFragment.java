@@ -10,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionBarContainer;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -63,7 +64,6 @@ public class UserProfileFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         if (context instanceof FragmentCommunication) {
             listener = (FragmentCommunication) context;
         } else {
@@ -72,40 +72,6 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        getCurrentUserInfo();
-//    }
-//
-//    private void getCurrentUserInfo() {
-//        user = FirebaseAuth.getInstance().getCurrentUser();
-//        userProfileDatabaseRef = FirebaseDatabase.getInstance().getReference().child("/appUsers/" + user.getUid());
-//        if (user != null) {
-//            userProfileDatabaseRef.addValueEventListener(valueEventListener);
-//        }
-//    }
-
-    /*ValueEventListener valueEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            AppUsers appUsers = dataSnapshot.getValue(AppUsers.class);
-            String uploaderName = "Name: " + appUsers.getName();
-            String uploaderCity = "City: " + appUsers.getCity();
-            String uploaderState = "State: " + appUsers.getState();
-            String uploaderEmail = "Email: " + appUsers.getUserEmail();
-
-            userNameTextview.setText(uploaderName);
-            userCityTextview.setText(uploaderCity);
-            userStateTextview.setText(uploaderState);
-            userEmailTextview.setText(uploaderEmail);
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    };*/
 
     @Nullable
     @Override
@@ -118,15 +84,7 @@ public class UserProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findViewByIds(view);
-//        RecyclerView recyclerView = view.findViewById(R.id.user_profile_book_recycler_view);
-        this.bookAdapter = new CurrentUserBookAdapter(new LinkedList<>());
-//        recyclerView.setAdapter(bookAdapter);
-//        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         ref = FirebaseDatabase.getInstance().getReference("BookUploaded");
-//        Query currentUserBookQuery = ref.orderByChild("uploaderEmail").equalTo(user.getEmail());
-//        currentUserBookQuery.addValueEventListener(bookEventListener);
-//        RxView.clicks(editFab).subscribe(clicks -> listener.moveToProfileUpdateFragment());
-        //RxView.clicks(backToHomeScreenButton).subscribe(clicks -> listener.moveToHomeScreenFragment());
         tabLayout.addTab(tabLayout.newTab().setText("user profile"));
         tabLayout.addTab(tabLayout.newTab().setText("your books"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -136,16 +94,7 @@ public class UserProfileFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tabLayout.getSelectedTabPosition() == 0) {
-                    //Toast.makeText(requireContext(), "Tab" + tabLayout.getSelectedTabPosition(), Toast.LENGTH_SHORT).show();
-                } else {
-//                    RecyclerView recyclerView = view.findViewById(R.id.user_profile_book_recycler_view);
-//                    //bookAdapter = new CurrentUserBookAdapter(new LinkedList<>());
-//                    recyclerView.setAdapter(bookAdapter);
-//                    recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-//                   }
-                    //listener.moveToHomeScreenFragment();
-                }
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -160,38 +109,8 @@ public class UserProfileFragment extends Fragment {
         });
     }
 
-    ValueEventListener bookEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                Book book = ds.getValue(Book.class);
-                bookList.add(book);
-            }
-            bookAdapter.setData(bookList);
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-            Log.e(TAG, "onCancelled: ");
-        }
-    };
-
-    private void findViewByIds(@NonNull View view) {
-        userNameTextview = view.findViewById(R.id.user_profile_name);
-        userCityTextview = view.findViewById(R.id.user_profile_city);
-        userStateTextview = view.findViewById(R.id.user_profile_state);
-        userEmailTextview = view.findViewById(R.id.user_profile_email);
-        editFab = view.findViewById(R.id.edit_profile_fab);
-        //backToHomeScreenButton = view.findViewById(R.id.user_profile_back_to_home_button);
+    private void findViewByIds(View view) {
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.user_profile_viewpager);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        ref.removeEventListener(bookEventListener);
     }
 }
