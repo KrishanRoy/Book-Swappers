@@ -16,8 +16,6 @@ import com.example.krishanroy.bookswappers.ui.HomeScreenFragment;
 import com.example.krishanroy.bookswappers.ui.LoginFragment;
 import com.example.krishanroy.bookswappers.ui.ProfileUpdateFragment;
 import com.example.krishanroy.bookswappers.ui.SplashScreenFragment;
-import com.example.krishanroy.bookswappers.ui.TabUserBooksFragment;
-import com.example.krishanroy.bookswappers.ui.TabUserProfileFragment;
 import com.example.krishanroy.bookswappers.ui.UploadNewBooksFragment;
 import com.example.krishanroy.bookswappers.ui.UserDetailsFragment;
 import com.example.krishanroy.bookswappers.ui.UserProfileFragment;
@@ -39,9 +37,8 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
     private static final String CREATE_NEW_AC_FRAGMENT_KEY = "create new accoutn fragment";
     private static final String HOME_SCREEN_FRAGMENT_KEY = "home screen fragment";
     private static final int REQUEST_TAKE_PHOTO = 1;
-    private static final String TAB_LAYOUT_USER_PROFILE_KEY = "Tab layout user profile key";
-    private static final String TAB_LAYOUT_USER_BOOKS_KEY = "tab layout user books key";
     private String currentPhotoPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,41 +161,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
             }
         }
     }
-
-    @Override
-    public void moveToTabLayoutUserProfileFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, TabUserProfileFragment.newInstance())
-                .addToBackStack(TAB_LAYOUT_USER_PROFILE_KEY)
-                .commit();
-    }
-
-    @Override
-    public void moveToTabLayoutUserBooksFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, TabUserBooksFragment.newInstance())
-                .addToBackStack(TAB_LAYOUT_USER_BOOKS_KEY)
-                .commit();
-    }
-
-
-    /*@Override
-    public void openTheGitHubLink() {
-        Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.githublink_of_the_currentproject)));
-        if (githubIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(githubIntent);
-        }
-    }
-
-    @Override
-    public void openTheLinkedInPage() {
-        Intent linkedInIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.linkedIn_link)));
-        if (linkedInIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(linkedInIntent);
-        }
-    }*/
 
     private File createImageFile() throws IOException {
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());

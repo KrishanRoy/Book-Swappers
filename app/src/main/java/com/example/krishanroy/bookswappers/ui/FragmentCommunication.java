@@ -23,10 +23,6 @@ public interface FragmentCommunication {
 
     void dispatchTakePictureIntent();
 
-    void moveToTabLayoutUserProfileFragment();
-
-    void moveToTabLayoutUserBooksFragment();
-
 //    void openTheGitHubLink();
 //
 //    void openTheLinkedInPage();

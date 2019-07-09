@@ -44,7 +44,6 @@ public class TabUserProfileFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         if (context instanceof FragmentCommunication) {
             listener = (FragmentCommunication) context;
         } else {
@@ -104,7 +103,6 @@ public class TabUserProfileFragment extends Fragment {
         userStateTextview = view.findViewById(R.id.user_profile_state);
         userEmailTextview = view.findViewById(R.id.user_profile_email);
         editFab = view.findViewById(R.id.edit_profile_fab);
-        //backToHomeScreenButton = view.findViewById(R.id.user_profile_back_to_home_button);
 
     }
 }
