@@ -1,5 +1,7 @@
 package com.example.krishanroy.bookswappers.ui;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,13 +20,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jakewharton.rxbinding3.view.RxView;
 
 public class TabUserProfileFragment extends Fragment {
     private TextView userNameTextview, userCityTextview, userStateTextview, userEmailTextview;
     private DatabaseReference userProfileDatabaseRef;
     private FirebaseUser user;
     private FloatingActionButton editFab;
+    private FragmentCommunication listener;
 
     public static TabUserProfileFragment newInstance() {
         return new TabUserProfileFragment();
@@ -34,6 +39,18 @@ public class TabUserProfileFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getCurrentUserInfo();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        if (context instanceof FragmentCommunication) {
+            listener = (FragmentCommunication) context;
+        } else {
+            throw new RuntimeException(context.toString() +
+                    "must implement FragmentCommunication");
+        }
     }
 
     private void getCurrentUserInfo() {
@@ -70,6 +87,15 @@ public class TabUserProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.tab_layout_user_profile_fragment, container, false);
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        findViewByIds(view);
+
+        RxView.clicks(editFab).subscribe(clicks -> listener.moveToProfileUpdateFragment());
     }
 
     private void findViewByIds(@NonNull View view) {

@@ -43,7 +43,7 @@ public class ProfileUpdateFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         if (context instanceof FragmentCommunication) {
             listener = (FragmentCommunication) context;
         } else {

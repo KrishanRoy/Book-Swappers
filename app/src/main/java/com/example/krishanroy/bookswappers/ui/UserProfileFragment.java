@@ -72,21 +72,21 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getCurrentUserInfo();
-    }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        getCurrentUserInfo();
+//    }
+//
+//    private void getCurrentUserInfo() {
+//        user = FirebaseAuth.getInstance().getCurrentUser();
+//        userProfileDatabaseRef = FirebaseDatabase.getInstance().getReference().child("/appUsers/" + user.getUid());
+//        if (user != null) {
+//            userProfileDatabaseRef.addValueEventListener(valueEventListener);
+//        }
+//    }
 
-    private void getCurrentUserInfo() {
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        userProfileDatabaseRef = FirebaseDatabase.getInstance().getReference().child("/appUsers/" + user.getUid());
-        if (user != null) {
-            userProfileDatabaseRef.addValueEventListener(valueEventListener);
-        }
-    }
-
-    ValueEventListener valueEventListener = new ValueEventListener() {
+    /*ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             AppUsers appUsers = dataSnapshot.getValue(AppUsers.class);
@@ -105,7 +105,7 @@ public class UserProfileFragment extends Fragment {
         public void onCancelled(@NonNull DatabaseError databaseError) {
 
         }
-    };
+    };*/
 
     @Nullable
     @Override
@@ -123,9 +123,9 @@ public class UserProfileFragment extends Fragment {
 //        recyclerView.setAdapter(bookAdapter);
 //        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         ref = FirebaseDatabase.getInstance().getReference("BookUploaded");
-        Query currentUserBookQuery = ref.orderByChild("uploaderEmail").equalTo(user.getEmail());
-        currentUserBookQuery.addValueEventListener(bookEventListener);
-        RxView.clicks(editFab).subscribe(clicks -> listener.moveToProfileUpdateFragment());
+//        Query currentUserBookQuery = ref.orderByChild("uploaderEmail").equalTo(user.getEmail());
+//        currentUserBookQuery.addValueEventListener(bookEventListener);
+//        RxView.clicks(editFab).subscribe(clicks -> listener.moveToProfileUpdateFragment());
         //RxView.clicks(backToHomeScreenButton).subscribe(clicks -> listener.moveToHomeScreenFragment());
         tabLayout.addTab(tabLayout.newTab().setText("user profile"));
         tabLayout.addTab(tabLayout.newTab().setText("your books"));
@@ -137,7 +137,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tabLayout.getSelectedTabPosition() == 0) {
-                    Toast.makeText(requireContext(), "Tab" + tabLayout.getSelectedTabPosition(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(requireContext(), "Tab" + tabLayout.getSelectedTabPosition(), Toast.LENGTH_SHORT).show();
                 } else {
 //                    RecyclerView recyclerView = view.findViewById(R.id.user_profile_book_recycler_view);
 //                    //bookAdapter = new CurrentUserBookAdapter(new LinkedList<>());
