@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jakewharton.rxbinding3.view.RxView;
 
+import java.util.Objects;
+
 public class ProfileUpdateFragment extends Fragment {
 
     private FragmentCommunication listener;
@@ -79,8 +81,7 @@ public class ProfileUpdateFragment extends Fragment {
         email = updateEmailEdText.getText().toString();
         AppUsers appUsers = new AppUsers(name, city, state, email);
         databaseReference.setValue(appUsers);
-        listener.finishFragment(this);
-        listener.moveToUserProfileFragment();
+        Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
