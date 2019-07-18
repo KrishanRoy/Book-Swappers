@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTextListener {
@@ -79,7 +81,7 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        //((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Nullable
@@ -93,9 +95,9 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Toolbar toolbar = view.findViewById(R.id.main_activity_toolbar);
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         RecyclerView recyclerView = view.findViewById(R.id.book_recycler_view);
-        searchView = view.findViewById(R.id.home_screen_searchview);
-        searchView.setOnQueryTextListener(this);
         fabCamera = view.findViewById(R.id.add_books_with_camera_fab);
         RxView.clicks(fabCamera).subscribe(clicks -> listener.moveToUploadNewBookFragment());
         bookDatabaseReference = FirebaseDatabase.getInstance().getReference(UploadNewBooksFragment.BOOK_REFERENCE);
@@ -183,24 +185,21 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-        inflater.inflate(R.menu.links_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.links_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.home_screen_action_search);
+        searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            /*case R.id.menu_github_link:
-                listener.openTheGitHubLink();
-                break;
-            case R.id.menu_linkedin_link:
-                listener.openTheLinkedInPage();
-                break;*/
             case R.id.user_profile_menu:
                 listener.moveToUserProfileFragment();
-                //listener.finishFragment(this);
                 break;
             case R.id.menu_sign_out:
                 listener.signOutFromTheApp();

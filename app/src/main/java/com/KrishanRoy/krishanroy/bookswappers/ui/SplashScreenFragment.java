@@ -51,7 +51,7 @@ public class SplashScreenFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ImageView animationImageView = view.findViewById(R.id.splash_page_animation_imageView);
         showAnimation(animationImageView);
-        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
+        //Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
         splashTread = new Thread() {
             @Override
             public void run() {

@@ -4,17 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/home_screen_searchview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/searchview_background"
-        app:layout_constraintBottom_toTopOf="@+id/book_recycler_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <!--<android.support.v7.widget.SearchView-->
+    <!--android:id="@+id/home_screen_searchview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/searchview_background"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/book_recycler_view"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent">-->
 
-    </android.support.v7.widget.SearchView>
+    <!--</android.support.v7.widget.SearchView>-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintBottom_toTopOf="@+id/book_recycler_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="BookSwappers"
+        app:titleTextColor="@color/colorPrimaryDark" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/book_recycler_view"
@@ -23,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_screen_searchview">
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_toolbar">
 
     </android.support.v7.widget.RecyclerView>
 

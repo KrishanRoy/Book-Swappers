@@ -49,5 +49,6 @@
     <string name="bottom_bar_preview">Preview</string>
     <string name="bottom_bar_lottiefiles">Lottiefiles</string>
     <string name="bottom_bar_learn">Learn</string>
+    <string name="home_screen_menu_search">Search</string>
 
 </resources>
