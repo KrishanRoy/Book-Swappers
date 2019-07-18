@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCommunica
         initiateSplashScreen();
         //Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
         //getSupportActionBar().setTitle(Html.fromHtml("<font color='#000099'>BookSwappers</font>"));
-        Toolbar toolbar = findViewById(R.id.main_activity_toolbar);
-        setSupportActionBar(toolbar);
+
 
     }
 
