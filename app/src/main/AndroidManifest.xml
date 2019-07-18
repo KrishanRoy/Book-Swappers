@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.krishanroy.bookswappers">
+    package="com.KrishanRoy.krishanroy.bookswappers">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-feature
@@ -14,12 +14,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/splash_screen"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.android.fileprovider"
+            android:authorities="com.KrishanRoy.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -27,7 +27,7 @@
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
         <activity
-            android:name=".MainActivity"
+            android:name="com.KrishanRoy.krishanroy.bookswappers.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

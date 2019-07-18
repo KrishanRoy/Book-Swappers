@@ -8,20 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:820485487861:android:631e880dc60b39ea",
+        "mobilesdk_app_id": "1:820485487861:android:3b9aacd1f0b09d5c",
         "android_client_info": {
-          "package_name": "com.example.krishanroy.bookswappers"
+          "package_name": "com.KrishanRoy.krishanroy.bookswappers"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "820485487861-h9pli95dlgb5feg1a779uoao3v7kn8ks.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.krishanroy.bookswappers",
-            "certificate_hash": "61cbd8cd6857fd351548aa06e81f6ead12ef094c"
-          }
-        },
         {
           "client_id": "820485487861-qe9ujj0odh0hce49c06qo5oihp183e9g.apps.googleusercontent.com",
           "client_type": 3
@@ -33,20 +25,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "820485487861-qe9ujj0odh0hce49c06qo5oihp183e9g.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
