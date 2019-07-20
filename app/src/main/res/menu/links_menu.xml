@@ -5,6 +5,7 @@
         android:id="@+id/home_screen_action_search"
         android:icon="@drawable/ic_search"
         android:title="@string/home_screen_menu_search"
+        app:iconTint="#00574B"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
     <item

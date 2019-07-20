@@ -81,7 +81,6 @@ public class HomeScreenFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Nullable
