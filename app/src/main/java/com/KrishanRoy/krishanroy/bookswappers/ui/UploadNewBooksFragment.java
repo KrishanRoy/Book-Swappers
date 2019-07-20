@@ -101,8 +101,17 @@ public class UploadNewBooksFragment extends Fragment {
         storageReference = storage.getReference();
         RxView.clicks(openGalleryButton)
                 .subscribe(clicks -> openGalleryAndPickImage());
-        RxView.clicks(uploadImageToFireBaseButton)
-                .subscribe(clicks -> uploadImageFileToFireBase());
+        if (bookTitleEdText.getText().toString().isEmpty() || authorNameEdText.getText().toString().isEmpty()) {
+            if (bookTitleEdText.getText().toString().isEmpty()) {
+                bookTitleEdText.setError("please enter a title");
+            }
+            if (authorNameEdText.getText().toString().isEmpty()) {
+                authorNameEdText.setError("please enter an Author name");
+            }
+        } else {
+            RxView.clicks(uploadImageToFireBaseButton)
+                    .subscribe(clicks -> uploadImageFileToFireBase());
+        }
         RxView.clicks(doneButton).subscribe(clicks -> {
             listener.finishFragment(this);
             Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
