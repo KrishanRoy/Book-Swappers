@@ -35,6 +35,8 @@ import com.google.firebase.storage.StorageTask;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 import static android.app.Activity.RESULT_OK;
 import static android.telephony.MbmsDownloadSession.RESULT_CANCELLED;
 
@@ -103,7 +105,7 @@ public class UploadNewBooksFragment extends Fragment {
                 .subscribe(clicks -> uploadImageFileToFireBase());
         RxView.clicks(doneButton).subscribe(clicks -> {
             listener.finishFragment(this);
-            listener.moveToHomeScreenFragment();
+            Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
         });
 
     }
@@ -137,7 +139,7 @@ public class UploadNewBooksFragment extends Fragment {
     }
 
     private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = (getActivity()).getContentResolver();
+        ContentResolver contentResolver = (Objects.requireNonNull(getActivity())).getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(contentResolver.getType(uri));
     }

@@ -85,7 +85,6 @@ public class UserProfileFragment extends Fragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
