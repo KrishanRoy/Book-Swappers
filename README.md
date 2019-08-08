@@ -8,8 +8,8 @@ appreciate your book, fix a meeting place and then donate your book hand to hand
 books. The book donor will decide, the best person if multiple collectors show interest for the same book. 
 
 
-Trello Board link of [Book Swappers](https://trello.com/b/W8a1wTbZ/book-swappers)
-to check the distribution of the tasks.
+Check [Trello Board](https://trello.com/b/W8a1wTbZ/book-swappers)
+to see the distribution and progression of the tasks.
 
 ## APP features:
 - Find people who are donating and receiving old books around your neighborhood based on your location
@@ -23,11 +23,11 @@ to check the distribution of the tasks.
 
 ## Future Iterations:
 
-- A seperate user flow without user signing up initially
-- Point system will ensure book mobility and book swapping. If one donates one book, one will get a point and 
+- A seperate user flow so that an user can sign up later after she uses the app for a while and trusts more
+- Point system which will ensure book mobility and book swapping. Users will start with some initial points. Afterwards, if one donates one book, one will get a point and 
 if one receives the book, one spends a point. If someone, mails the book to a collector, then the donor gets 
 three points as she/he will be spending money out of the pocket. 
-- recommend other book swappers based on location and book taste
+- Recommend other book swappers based on location and book taste
 
 
 ## Layout Screenshots
