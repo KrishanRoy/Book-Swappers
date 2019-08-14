@@ -3,9 +3,13 @@ package com.KrishanRoy.krishanroy.bookswappers.ui.view;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +27,7 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
     private String email;
     private String city;
     private Book book;
+    private ActionMode actionMode;
     public static final String TAG = "BookViewHolder";
 
     public BookViewHolder(@NonNull View itemView) {
@@ -54,7 +59,44 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         locationTextView.setText(book.getUploaderCity());
         RxView.clicks(itemView)
                 .subscribe(click -> alertDialoguePopUp());
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (actionMode != null) {
+                    return false;
+                }
+                actionMode = ((AppCompatActivity) itemView.getContext()).startSupportActionMode(actionModeCallback);
+                return true;
+            }
+        });
+
     }
+
+    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+            actionMode.getMenuInflater().inflate(R.menu.contextual_action_bar_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+//            if (itemView.getContext() == R.id.cab_delete_books) {
+//                Toast.makeText(itemView.getContext(), "deleted", Toast.LENGTH_SHORT).show();
+//            }
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode actionMode) {
+            actionMode = null;
+        }
+    };
 
     @SuppressLint("CheckResult")
     private void alertDialoguePopUp() {
