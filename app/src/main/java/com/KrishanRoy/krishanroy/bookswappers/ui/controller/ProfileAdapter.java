@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.KrishanRoy.krishanroy.bookswappers.ui.TabUserProfileFragment;
 import com.KrishanRoy.krishanroy.bookswappers.ui.TabUserBooksFragment;
+import com.KrishanRoy.krishanroy.bookswappers.ui.TabUserProfileFragment;
 
 public class ProfileAdapter extends FragmentPagerAdapter {
     private Context context;

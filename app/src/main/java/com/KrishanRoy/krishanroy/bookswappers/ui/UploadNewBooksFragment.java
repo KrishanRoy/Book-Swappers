@@ -101,17 +101,21 @@ public class UploadNewBooksFragment extends Fragment {
         storageReference = storage.getReference();
         RxView.clicks(openGalleryButton)
                 .subscribe(clicks -> openGalleryAndPickImage());
-        if (bookTitleEdText.getText().toString().isEmpty() || authorNameEdText.getText().toString().isEmpty()) {
-            if (bookTitleEdText.getText().toString().isEmpty()) {
-                bookTitleEdText.setError("please enter a title");
-            }
-            if (authorNameEdText.getText().toString().isEmpty()) {
-                authorNameEdText.setError("please enter an Author name");
-            }
-        } else {
-            RxView.clicks(uploadImageToFireBaseButton)
-                    .subscribe(clicks -> uploadImageFileToFireBase());
-        }
+
+        RxView.clicks(uploadImageToFireBaseButton)
+                .subscribe(clicks -> {
+                    if (!bookTitleEdText.getText().toString().isEmpty() && !authorNameEdText.getText().toString().isEmpty()) {
+                        uploadImageFileToFireBase();
+                    } else {
+                        if (bookTitleEdText.getText().toString().isEmpty()) {
+                            bookTitleEdText.setError("please enter a title");
+                        }
+                        if (authorNameEdText.getText().toString().isEmpty()) {
+                            authorNameEdText.setError("please enter an Author name");
+                        }
+                    }
+                });
+
         RxView.clicks(doneButton).subscribe(clicks -> {
             listener.finishFragment(this);
             Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
@@ -167,6 +171,8 @@ public class UploadNewBooksFragment extends Fragment {
                                 progressBar.setProgress(0);
                                 bookTitleEdText.setText("");
                                 authorNameEdText.setText("");
+                                authorNameEdText.setFocusable(false);
+                                bookPreviewImageView.setImageResource(0);
                             }
                         }, new GenerateRandomNumber().randomNumber());
                         Toast.makeText(requireContext(), "Upload Successful", Toast.LENGTH_SHORT).show();

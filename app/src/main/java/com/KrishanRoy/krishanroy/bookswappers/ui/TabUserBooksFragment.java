@@ -66,7 +66,6 @@ public class TabUserBooksFragment extends Fragment {
                 bookList.add(book);
             }
             bookAdapter.setData(bookList);
-
         }
 
         @Override
